@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2026 a las 00:35:37
+-- Tiempo de generación: 08-05-2026 a las 17:06:46
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,15 +33,19 @@ CREATE TABLE `medicamento` (
   `indicaciont` varchar(200) NOT NULL,
   `eficancia` varchar(200) NOT NULL,
   `incidencia` varchar(1) NOT NULL,
-  `alternativa` varchar(200) NOT NULL
+  `alternativa` varchar(200) NOT NULL,
+  `precio` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `medicamento`
 --
 
-INSERT INTO `medicamento` (`id`, `nombre`, `indicaciont`, `eficancia`, `incidencia`, `alternativa`) VALUES
-(1, 'Onio', 'aaaaa', 'aaaa', 'g', 'aaa');
+INSERT INTO `medicamento` (`id`, `nombre`, `indicaciont`, `eficancia`, `incidencia`, `alternativa`, `precio`) VALUES
+(1, 'Onio', 'aaaaa', 'aaaa', 'g', 'aaa', 0),
+(2, 'prueba', 'prueba', 'prueba', 'g', 'prueba', 0),
+(3, 'prueba', 'prueba', 'prueba', 'G', 'prueba', 0),
+(4, 'prueba', 'prueba', 'prueba', 'g', 'prueba', 0);
 
 --
 -- Índices para tablas volcadas
