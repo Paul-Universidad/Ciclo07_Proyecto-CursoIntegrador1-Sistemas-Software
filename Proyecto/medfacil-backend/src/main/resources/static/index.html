@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MedFacil</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+  <header class="top">
+    <img src="/assets/logo.svg" alt="" class="logo" width="40" height="40" />
+    <h1>MedFacil</h1>
+    <p class="tag">Medicamentos y repaso — demo educativa</p>
+  </header>
+
+  <nav class="tabs" aria-label="Secciones">
+    <button type="button" data-section="inicio" class="active">Inicio</button>
+    <button type="button" data-section="medicamentos">Medicamentos</button>
+    <button type="button" data-section="aprender">Repaso</button>
+    <button type="button" data-section="consejos">Consejos</button>
+  </nav>
+
+  <main id="content" class="panel"></main>
+
+  <footer class="foot">
+    <small>API: <code>/api</code> · H2: <code>/h2-console</code> (JDBC URL igual que en <code>application.properties</code>)</small>
+  </footer>
+
+  <script src="/js/app.js" type="module"></script>
+</body>
+</html>

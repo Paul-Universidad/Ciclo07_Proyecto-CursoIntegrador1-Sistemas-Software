@@ -1,0 +1,11 @@
+Estructura de vistas (proyecto MedFacil)
+========================================
+
+- WEB-INF/views/     → páginas .jsp y fragmentos .jspf (_head, _header, _footer)
+- resources/static/css/prototipo-apf.css → hoja de estilos del prototipo APF (URL: /css/prototipo-apf.css)
+- resources/static/js/ → JavaScript de la SPA (index.html)
+- webapp/js/           → reservado para scripts JSP en el futuro (opcional; hoy el JSP casi no usa JS)
+
+Los .jsp deben vivir bajo WEB-INF para que no se descarguen directamente; solo el controlador las resuelve.
+
+Fragmentos: se incluyen con <%@ include file="_head.jspf" %> (compilación) para evitar pantallas en blanco con ciertos Tomcat/Jasper.
