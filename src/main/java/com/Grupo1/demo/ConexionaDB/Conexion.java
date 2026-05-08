@@ -6,10 +6,19 @@ import java.sql.SQLException;
 public class Conexion {
    
      // Parámetros de conexión para XAMPP
-    private static final String URL = "jdbc:mysql://localhost:3306/anibd";
+   
+    /*
     private static final String USER = "root"; // Usuario por defecto en XAMPP
     private static final String PASS = "";     // Contraseña por defecto (vacía)
-
+     private static final String URL = "jdbc:mysql://localhost:3306/anibd";
+    */
+    
+    /*Contraseña de prueba en laboratoriio*/
+    private static final String USER = "root"; // Usuario por defecto en XAMPP
+    private static final String PASS = "";     // Contraseña por defecto (vacía)
+        private static final String URL = "jdbc:mysql://localhost:3307/anibd";
+    
+    
     public static Connection conectar() {
         Connection conexion = null;
         try {

@@ -11,7 +11,16 @@ public class CargarDatos {
         medlist mlist = new medlist();
         int contador = 0;
         String sql = "select * from medicamento";
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/anibd", "root", ""); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        
+        /*Personal*/
+        /*
+         String USER = "root"; // Usuario por defecto en XAMPP
+     String  String PASS = "";     // Contraseña por defecto (vacía)
+        */
+            /*Contraseña de prueba en laboratoriio*/
+ String USER = "root"; // Usuario por defecto en XAMPP
+  String PASS = "";     // Contraseña por defecto (vacía)
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/anibd", USER, PASS); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql);) {
             while (rs.next()) {
                 medicamentos m = new medicamentos(rs.getInt("id"),
                         rs.getString("nombre"),
