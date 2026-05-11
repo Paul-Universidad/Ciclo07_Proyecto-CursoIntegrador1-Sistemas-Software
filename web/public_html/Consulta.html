@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+#tema1 + label {
+color: green;
+
+}
+#tema2 + label{
+color: yellow;
+
+}
+#tema3 + label{
+color: red;
+
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <h1>Problema</h1>
+        <label>Panorama general del problema:</label>
+        <hr>
+        <input type="radio" id="caso1" name="caso" value="CaseA">
+        <label for="caso1">Caso1</label>
+        <br>
+        <input type="radio" id="caso2" name="caso" value="CaseB">
+        <label for="caso2">Caso2</label>
+    </div>
+    <div>
+        <h1>Especificacion</h1>
+        <label>Especifique el problema:</label>
+        <hr>
+        <input type="radio" id="tema1" name="tema" value="1">
+        <label for="tema1">Tema1</label>
+        <br>
+        <input type="radio" id="tema2" name="tema" value="2">
+        <label for="tema2">Tema2</label>
+        <br>
+        <input type="radio" id="tema3" name="tema" value="3">
+        <label for="tema3">Tema3</label>
+
+        <button type="button">Enviar</button>
+    </div>
+<div id="depositario"></div>
+
+    <script>
+        const url = 'http://localhost:8081/paciente1';
+        fetch(url)
+            .then(entregado => entregado.text())
+            .then(respuesta => {
+                console.log('Respuesta: ', respuesta);
+
+
+
+            })
+            .catch(error => console.log("Error" + error));
+
+
+
+
+
+function Enviar() {
+    // CAPTURA DENTRO DE LA FUNCIÓN: Esto evita el "null"
+    const inputCaso = document.querySelector('input[name="caso"]:checked');
+    const inputTema = document.querySelector('input[name="tema"]:checked');
+
+    // Validación para no enviar la petición si falta algún dato
+    if (!inputCaso || !inputTema) {
+        alert("Debes seleccionar una opción en Problema y otra en Especificación");
+        return;
+    }
+
+    const caso = inputCaso.value;  // Ej: "CaseA"
+    const index = inputTema.value; // Ej: "0"
+
+    const url = `http://localhost:8081/paciente1/${caso}/${index}`;
+
+    fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error("Error en el servidor");
+            return res.text();
+        })
+        .then(respuesta => {
+            // Ponemos la respuesta en el div
+            document.getElementById("depositario").innerHTML += `<p>${respuesta}</p>`;
+        })
+        .catch(error => console.error("Error detallado:", error));
+}
+
+// Asignar la función al botón que ya tienes en el HTML
+document.querySelector("button").onclick = Enviar;
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
