@@ -2,3 +2,7 @@
 .idea/
 *.iml
 _ref_dwi/
+
+# Cliente React (cuando exista)
+Proyecto/frontend-react/node_modules/
+Proyecto/frontend-react/dist/

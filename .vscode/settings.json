@@ -2,6 +2,6 @@
   "files.encoding": "utf8",
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.import.maven.enabled": true,
-  "maven.executable.path": "${workspaceFolder}/Proyecto/medfacil-backend/mvnw.cmd",
+  "maven.executable.path": "${workspaceFolder}/Proyecto/backend-springboot/mvnw.cmd",
   "maven.terminal.useJavaHome": true
 }
