@@ -4,16 +4,16 @@ Base URL (desarrollo): `http://localhost:8080`
 
 | Método | Ruta | Descripción |
 |--------|------|-------------|
-| GET | `/api/health` | Estado del servicio |
-| GET | `/api/home/summary` | Resumen para inicio/panel |
-| GET | `/api/medications` | Lista de medicamentos |
-| GET | `/api/medications/search?q=` | Búsqueda por nombre o genérico |
-| GET | `/api/medications/{id}` | Detalle por id |
-| POST | `/api/medications` | Cuerpo JSON (campos del formulario; `name` obligatorio) |
-| PUT | `/api/medications/{id}` | Actualizar |
-| DELETE | `/api/medications/{id}` | Eliminar (204) |
-| GET | `/api/quiz/questions` | Preguntas del repaso con opciones |
-| POST | `/api/quiz/answer` | Cuerpo JSON: `questionId`, `optionId` |
-| POST | `/api/advice` | Cuerpo JSON: `topic` (texto del usuario) |
+| GET | `/api/estado` | Estado del servicio |
+| GET | `/api/inicio/resumen` | Resumen para inicio/panel |
+| GET | `/api/medicamentos` | Lista de medicamentos (incluye `category`, `presentation`, `price` si existen) |
+| GET | `/api/medicamentos/buscar?q=` | Búsqueda por nombre o genérico |
+| GET | `/api/medicamentos/{id}` | Detalle por id |
+| POST | `/api/medicamentos` | Cuerpo JSON (campos del formulario; `name` obligatorio) |
+| PUT | `/api/medicamentos/{id}` | Actualizar |
+| DELETE | `/api/medicamentos/{id}` | Eliminar (204) |
+| GET | `/api/aprendizaje/preguntas` | Preguntas del módulo Aprendizaje con opciones |
+| POST | `/api/aprendizaje/respuesta` | Cuerpo JSON: `questionId`, `optionId` |
+| POST | `/api/consejos` | Cuerpo JSON: `topic` (texto del usuario) |
 
-CORS: `WebConfig` permite orígenes locales (8080, 5173) bajo `/api/**`.
+CORS: `ConfiguracionWeb` permite orígenes locales (8080, 5173) bajo `/api/**`.

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchMedications } from "../api/medicationApi.js";
+import { fetchMedications } from "../api/medicamentosApi.js";
 
 export function Medicamentos() {
   const [items, setItems] = useState([]);

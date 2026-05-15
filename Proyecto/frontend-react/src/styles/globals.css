@@ -5,7 +5,7 @@
 /*
  * React en #root: body en columna; #root en fila.
  * Scroll solo en .apf-page → el sidebar queda fijo a la vista (como sticky)
- * y /repaso con mucho contenido no “estira” mal el layout.
+ * y /aprendizaje con mucho contenido no “estira” mal el layout.
  */
 html {
   height: 100%;
@@ -43,7 +43,7 @@ body.apf {
   align-self: flex-start;
 }
 
-/* Contenido (repaso, etc.): única columna con scroll vertical */
+/* Contenido (aprendizaje, etc.): única columna con scroll vertical */
 #root > .apf-page {
   flex: 1 1 auto;
   min-width: 0;

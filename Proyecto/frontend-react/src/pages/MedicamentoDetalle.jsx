@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { deleteMedication, fetchMedication } from '../api/medicationApi.js';
+import { deleteMedication, fetchMedication } from '../api/medicamentosApi.js';
 
 export function MedicamentoDetalle() {
   const { id } = useParams();
@@ -53,6 +53,17 @@ export function MedicamentoDetalle() {
     <main className="apf-shell apf-shell-wide">
       <h1 className="apf-page-title">{m.name}</h1>
       <p className="muted">{m.genericName}</p>
+      {m.category && (
+        <p className="muted" style={{ marginTop: '0.35rem' }}>
+          Categoría: <strong>{m.category}</strong>
+        </p>
+      )}
+      {(m.presentation || m.price != null) && (
+        <p className="muted" style={{ marginTop: '0.25rem' }}>
+          {m.presentation && <span>Presentación: {m.presentation}. </span>}
+          {m.price != null && <span>Precio referencial: S/ {m.price}</span>}
+        </p>
+      )}
       <p style={{ marginTop: '1rem' }}>
         <Link className="apf-btn apf-btn-secondary" to={`/medicamentos/${id}/editar`}>
           Editar

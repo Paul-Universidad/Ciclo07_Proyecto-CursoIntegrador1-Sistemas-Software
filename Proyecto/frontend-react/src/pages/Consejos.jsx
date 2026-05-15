@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchAdvice } from "../api/adviceApi.js";
+import { solicitarConsejoPorTema } from "../api/consejosApi.js";
 
 function triageClass(code) {
   if (code === "rojo") return "border-red-400 bg-red-50 text-red-700";
@@ -150,7 +150,7 @@ export function Consejos() {
     }
 
     try {
-      const data = await fetchAdvice(t);
+      const data = await solicitarConsejoPorTema(t);
       setAdvice(data);
     } catch (err) {
       setError(err?.response?.data?.error ?? err.message);

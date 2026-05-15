@@ -4,8 +4,8 @@ const links = [
   { to: '/inicio', label: 'Inicio', end: true },
   { to: '/panel', label: 'Panel' },
   { to: '/consulta', label: 'Consulta', pathPrefix: '/consulta' },
-  { to: '/medicamentos', label: 'Catalogo', pathPrefix: '/medicamentos' },
-  { to: '/repaso', label: 'Aprendizaje' },
+  { to: '/medicamentos', label: 'Catálogo', pathPrefix: '/medicamentos' },
+  { to: '/aprendizaje', label: 'Aprendizaje' },
   { to: '/consejos', label: 'Consejos' },
 ];
 

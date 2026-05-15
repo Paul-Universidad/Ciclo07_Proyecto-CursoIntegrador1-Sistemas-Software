@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchHomeSummary } from '../api/homeApi.js';
+import { fetchHomeSummary } from '../api/homeSummaryApi.js';
 
 export function useHomeSummary() {
   const [summary, setSummary] = useState(null);

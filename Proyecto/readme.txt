@@ -28,10 +28,11 @@ Tras compilar el frontend, la app está en el mismo puerto que el backend:
   http://localhost:8080/panel
   http://localhost:8080/consulta
   http://localhost:8080/medicamentos
-  http://localhost:8080/repaso
+  http://localhost:8080/aprendizaje
+  (ruta anterior /repaso redirige a /aprendizaje)
   http://localhost:8080/consejos
 
-API: http://localhost:8080/api/health
+API: http://localhost:8080/api/estado
 H2: http://localhost:8080/h2-console  (jdbc:h2:mem:pharmly , usuario sa, sin contraseña)
 
 --- Compilar frontend (Node.js 18+ y npm) ---

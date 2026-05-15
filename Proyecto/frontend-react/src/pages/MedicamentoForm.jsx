@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useMatch, useNavigate, useParams } from 'react-router-dom';
-import { createMedication, fetchMedication, updateMedication } from '../api/medicationApi.js';
+import { createMedication, fetchMedication, updateMedication } from '../api/medicamentosApi.js';
 
 const empty = {
   name: '',
@@ -10,7 +10,20 @@ const empty = {
   precautions: '',
   doseGuidance: '',
   sideEffects: '',
+  category: '',
+  presentation: '',
+  price: '',
 };
+
+const categoriasFormulario = [
+  { value: '', label: '— Sin categoría —' },
+  { value: 'analgesicos', label: 'Analgésicos' },
+  { value: 'antibioticos', label: 'Antibióticos' },
+  { value: 'antiinflamatorios', label: 'Antiinflamatorios' },
+  { value: 'cardiovasculares', label: 'Cardiovasculares' },
+  { value: 'neurologicos', label: 'Neurológicos' },
+  { value: 'dermatologicos', label: 'Dermatológicos' },
+];
 
 export function MedicamentoForm() {
   const isNew = !!useMatch('/medicamentos/nuevo');
@@ -38,6 +51,9 @@ export function MedicamentoForm() {
           precautions: m.precautions ?? '',
           doseGuidance: m.doseGuidance ?? '',
           sideEffects: m.sideEffects ?? '',
+          category: m.category ?? '',
+          presentation: m.presentation ?? '',
+          price: m.price != null ? String(m.price) : '',
         });
       })
       .catch((e) => {
@@ -90,6 +106,18 @@ export function MedicamentoForm() {
         <input id="name" value={form.name} onChange={onChange('name')} required />
         <label htmlFor="genericName">Nombre genérico</label>
         <input id="genericName" value={form.genericName} onChange={onChange('genericName')} />
+        <label htmlFor="category">Categoría</label>
+        <select id="category" value={form.category} onChange={onChange('category')}>
+          {categoriasFormulario.map((c) => (
+            <option key={c.value || 'none'} value={c.value}>
+              {c.label}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="presentation">Presentación</label>
+        <input id="presentation" value={form.presentation} onChange={onChange('presentation')} placeholder="Ej.: Comprimidos 500 mg" />
+        <label htmlFor="price">Precio (S/)</label>
+        <input id="price" type="text" inputMode="decimal" value={form.price} onChange={onChange('price')} placeholder="Ej.: 12.50" />
         <label htmlFor="description">Descripción</label>
         <textarea id="description" value={form.description} onChange={onChange('description')} rows={4} />
         <label htmlFor="commonUsage">Uso habitual</label>
