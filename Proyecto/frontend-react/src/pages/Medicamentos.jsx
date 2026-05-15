@@ -61,22 +61,13 @@ export function Medicamentos() {
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-8">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">
-            Catálogo de medicamentos
-          </h1>
-          <p className="text-slate-600">
-            Explora nuestra base de datos organizada por categorías
-          </p>
-        </div>
-
-        <Link
-          to="/medicamentos/nuevo"
-          className="inline-block bg-blue-600 text-white px-5 py-3 rounded-lg font-medium hover:bg-blue-700 transition"
-        >
-          Nuevo medicamento
-        </Link>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">
+          Catálogo de medicamentos
+        </h1>
+        <p className="text-slate-600">
+          Explora nuestra base de datos organizada por categorías
+        </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -154,15 +145,6 @@ export function Medicamentos() {
                     <p className="text-xs text-slate-500">Presentación</p>
                     <p className="text-sm font-medium text-slate-800">
                       {m.presentation}
-                    </p>
-                  </div>
-                )}
-
-                {m.price && (
-                  <div>
-                    <p className="text-xs text-slate-500">Precio</p>
-                    <p className="text-sm font-medium text-slate-800">
-                      S/ {m.price}
                     </p>
                   </div>
                 )}
