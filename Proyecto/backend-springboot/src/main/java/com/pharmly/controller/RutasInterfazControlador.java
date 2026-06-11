@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RutasInterfazControlador {
 
     @GetMapping({
+            "/login",
             "/inicio",
             "/panel",
             "/consulta",
             "/aprendizaje",
+            "/aprendizaje/**",
             "/repaso",
-            "/consejos",
             "/medicamentos",
             "/medicamentos/**"
     })

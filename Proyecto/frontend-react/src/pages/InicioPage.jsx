@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { useHomeSummary } from "../hooks/useHomeSummary.js";
+import { useAuth } from "../context/AuthContext.jsx";
+import { puedeAcceder } from "../utils/roles.js";
 
 export function InicioPage() {
   const { summary, error, loading } = useHomeSummary();
+  const { user } = useAuth();
 
-  const features = [
+  const allFeatures = [
     {
       title: "Panel de Control",
       description: "Accede a tu dashboard personalizado con estadísticas y accesos rápidos",
@@ -12,6 +15,7 @@ export function InicioPage() {
       color: "text-blue-600",
       bgColor: "bg-blue-50",
       link: "/panel",
+      modulo: "panel",
     },
     {
       title: "Consulta Rápida",
@@ -20,40 +24,29 @@ export function InicioPage() {
       color: "text-green-600",
       bgColor: "bg-green-50",
       link: "/consulta",
+      modulo: "consulta",
     },
     {
-      title: "Catálogo Completo",
+      title: "Diccionario de Medicamentos",
       description: "Explora nuestra base de datos completa de medicamentos clasificados",
       icon: "💊",
       color: "text-amber-600",
       bgColor: "bg-amber-50",
       link: "/medicamentos",
+      modulo: "medicamentos",
     },
     {
       title: "Aprendizaje",
-      description: "Cursos, módulos educativos y evaluaciones sobre farmacología",
+      description: "Minijuegos y evaluaciones sobre medicina, dolencias y medicamentos",
       icon: "🎓",
       color: "text-purple-600",
       bgColor: "bg-purple-50",
       link: "/aprendizaje",
-    },
-    {
-      title: "Consejos de Salud",
-      description: "Recomendaciones y mejores prácticas para el uso de medicamentos",
-      icon: "💡",
-      color: "text-pink-600",
-      bgColor: "bg-pink-50",
-      link: "/consejos",
-    },
-    {
-      title: "Tendencias",
-      description: "Mantente actualizado con las últimas novedades farmacéuticas",
-      icon: "📈",
-      color: "text-cyan-600",
-      bgColor: "bg-cyan-50",
-      link: "/panel",
+      modulo: "aprendizaje",
     },
   ];
+
+  const features = allFeatures.filter((f) => puedeAcceder(user?.type, f.modulo));
 
   return (
     <main className="min-h-screen bg-white px-6 py-10">

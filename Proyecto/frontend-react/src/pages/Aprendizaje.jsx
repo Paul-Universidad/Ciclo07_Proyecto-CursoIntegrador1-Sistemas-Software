@@ -1,161 +1,91 @@
-import { useState } from "react";
+import { Link } from 'react-router-dom';
+
+const juegos = [
+  {
+    titulo: 'Quiz de medicina',
+    descripcion:
+      '10 preguntas aleatorias sobre medicamentos, dolencias y conceptos de farmacología. Marca tus respuestas y guarda para ver tus resultados.',
+    icono: '❓',
+    link: '/aprendizaje/quiz',
+    disponible: true,
+    color: 'from-blue-500 to-indigo-600',
+  },
+  {
+    titulo: 'Completar palabras',
+    descripcion:
+      'Completa las palabras que faltan en párrafos sobre medicamentos y dolencias. Las respuestas correctas se marcan en verde automáticamente.',
+    icono: '✏️',
+    link: '/aprendizaje/completar',
+    disponible: true,
+    color: 'from-green-500 to-emerald-600',
+  },
+  {
+    titulo: 'Próximamente',
+    descripcion:
+      'Estamos preparando un nuevo minijuego para que sigas aprendiendo. ¡Muy pronto disponible!',
+    icono: '🎮',
+    link: null,
+    disponible: false,
+    color: 'from-slate-400 to-slate-500',
+  },
+];
 
 export function Aprendizaje() {
-  const [selection, setSelection] = useState({});
-  const [feedback, setFeedback] = useState({});
-
-  const questions = [
-    {
-      id: 1,
-      prompt: "¿Para qué se utiliza principalmente el Paracetamol?",
-      options: [
-        { id: "a", text: "Para tratar dolor y fiebre", correct: true },
-        { id: "b", text: "Para tratar infecciones bacterianas", correct: false },
-        { id: "c", text: "Para controlar la presión arterial", correct: false },
-      ],
-      explanation:
-        "El Paracetamol se usa como analgésico y antipirético, es decir, ayuda con el dolor y la fiebre.",
-    },
-    {
-      id: 2,
-      prompt: "¿Qué tipo de medicamento es la Amoxicilina?",
-      options: [
-        { id: "a", text: "Antiinflamatorio", correct: false },
-        { id: "b", text: "Antibiótico", correct: true },
-        { id: "c", text: "Antihipertensivo", correct: false },
-      ],
-      explanation:
-        "La Amoxicilina es un antibiótico usado para tratar infecciones bacterianas.",
-    },
-    {
-      id: 3,
-      prompt: "¿Cuál es una presentación común del Ibuprofeno?",
-      options: [
-        { id: "a", text: "Comprimidos 400mg", correct: true },
-        { id: "b", text: "Crema 1%", correct: false },
-        { id: "c", text: "Jarabe de insulina", correct: false },
-      ],
-      explanation:
-        "El Ibuprofeno suele encontrarse en comprimidos de 400mg, aunque existen otras presentaciones.",
-    },
-  ];
-
-  function onVerify(questionId) {
-    const optionId = selection[questionId];
-
-    if (!optionId) {
-      setFeedback((f) => ({
-        ...f,
-        [questionId]: { error: "Elige una opción." },
-      }));
-      return;
-    }
-
-    const question = questions.find((q) => q.id === questionId);
-    const option = question.options.find((o) => o.id === optionId);
-
-    setFeedback((f) => ({
-      ...f,
-      [questionId]: {
-        correct: option.correct,
-        explanation: question.explanation,
-      },
-    }));
-  }
-
   return (
-    <main className="max-w-7xl mx-auto px-6 py-8">
-      <div className="mb-8">
+    <main className="max-w-7xl mx-auto px-6 py-10">
+      <div className="mb-10 text-center">
         <h1 className="text-3xl font-bold text-slate-900 mb-2">
           Módulo de aprendizaje
         </h1>
         <p className="text-slate-600">
-          Responde las preguntas y comprueba tu comprensión.
+          Elige un minijuego y pon a prueba tus conocimientos sobre medicina,
+          dolencias y medicamentos.
         </p>
       </div>
 
-      <div className="space-y-6">
-        {questions.map((q, idx) => {
-          const currentFeedback = feedback[q.id];
-
-          return (
-            <section
-              key={q.id}
-              className="bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition p-6"
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {juegos.map((juego) => {
+          const card = (
+            <div
+              className={`flex h-96 flex-col rounded-2xl border border-slate-200 bg-white shadow-md transition ${
+                juego.disponible
+                  ? 'hover:-translate-y-2 hover:shadow-xl cursor-pointer'
+                  : 'opacity-70'
+              }`}
             >
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                <h2 className="text-lg font-bold text-slate-900">
-                  Pregunta {idx + 1} de {questions.length}
-                </h2>
-
-                <span className="w-fit bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium">
-                  Aprendizaje
-                </span>
+              <div
+                className={`flex h-40 items-center justify-center rounded-t-2xl bg-gradient-to-br ${juego.color}`}
+              >
+                <span className="text-6xl">{juego.icono}</span>
               </div>
 
-              <p className="text-slate-700 font-medium mb-5">
-                {q.prompt}
-              </p>
-
-              {currentFeedback?.error && (
-                <p className="bg-red-50 text-red-600 border border-red-200 rounded-lg px-4 py-3 mb-4 text-sm">
-                  {currentFeedback.error}
+              <div className="flex flex-1 flex-col p-6">
+                <h2 className="mb-3 text-xl font-bold text-slate-900">
+                  {juego.titulo}
+                </h2>
+                <p className="flex-1 text-sm text-slate-600">
+                  {juego.descripcion}
                 </p>
-              )}
 
-              {currentFeedback?.explanation != null && (
-                <p
-                  className={`rounded-lg px-4 py-3 mb-4 text-sm border ${
-                    currentFeedback.correct
-                      ? "bg-green-50 text-green-700 border-green-200"
-                      : "bg-red-50 text-red-700 border-red-200"
+                <span
+                  className={`mt-4 inline-block w-fit rounded-full px-4 py-1 text-xs font-semibold ${
+                    juego.disponible
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'bg-slate-100 text-slate-500'
                   }`}
                 >
-                  {currentFeedback.correct
-                    ? "✓ Correcto. "
-                    : "✗ Incorrecto. "}
-                  {currentFeedback.explanation}
-                </p>
-              )}
-
-              <div className="space-y-3">
-                {q.options.map((o) => (
-                  <label
-                    key={o.id}
-                    className={`flex items-center gap-3 border rounded-lg px-4 py-3 cursor-pointer transition ${
-                      selection[q.id] === o.id
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-slate-200 bg-slate-50 hover:bg-slate-100"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name={`q-${q.id}`}
-                      checked={selection[q.id] === o.id}
-                      onChange={() =>
-                        setSelection((s) => ({
-                          ...s,
-                          [q.id]: o.id,
-                        }))
-                      }
-                      className="w-4 h-4 accent-blue-600"
-                    />
-
-                    <span className="text-sm text-slate-700">
-                      {o.text}
-                    </span>
-                  </label>
-                ))}
-
-                <button
-                  type="button"
-                  onClick={() => onVerify(q.id)}
-                  className="mt-3 bg-blue-600 text-white px-5 py-3 rounded-lg font-medium hover:bg-blue-700 transition"
-                >
-                  Comprobar respuesta
-                </button>
+                  {juego.disponible ? 'Jugar ahora' : 'En desarrollo'}
+                </span>
               </div>
-            </section>
+            </div>
+          );
+
+          return juego.disponible ? (
+            <Link key={juego.titulo} to={juego.link} className="block">
+              {card}
+            </Link>
+          ) : (
+            <div key={juego.titulo}>{card}</div>
           );
         })}
       </div>

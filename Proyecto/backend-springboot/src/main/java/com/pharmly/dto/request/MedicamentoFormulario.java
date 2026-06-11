@@ -20,6 +20,10 @@ public class MedicamentoFormulario {
     private String precautions;
     private String doseGuidance;
     private String sideEffects;
+    private String contraindications;
+    private String interactions;
+    private String administrationRoute;
+    private Boolean requiresPrescription;
     private String category;
     private String presentation;
     /** Texto decimal opcional (ej. 12.50) */
@@ -89,6 +93,38 @@ public class MedicamentoFormulario {
         this.sideEffects = sideEffects;
     }
 
+    public String getContraindications() {
+        return contraindications;
+    }
+
+    public void setContraindications(String contraindications) {
+        this.contraindications = contraindications;
+    }
+
+    public String getInteractions() {
+        return interactions;
+    }
+
+    public void setInteractions(String interactions) {
+        this.interactions = interactions;
+    }
+
+    public String getAdministrationRoute() {
+        return administrationRoute;
+    }
+
+    public void setAdministrationRoute(String administrationRoute) {
+        this.administrationRoute = administrationRoute;
+    }
+
+    public Boolean getRequiresPrescription() {
+        return requiresPrescription;
+    }
+
+    public void setRequiresPrescription(Boolean requiresPrescription) {
+        this.requiresPrescription = requiresPrescription;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -127,6 +163,10 @@ public class MedicamentoFormulario {
         f.setPrecautions(r.getPrecautions());
         f.setDoseGuidance(r.getDoseGuidance());
         f.setSideEffects(r.getSideEffects());
+        f.setContraindications(r.getContraindications());
+        f.setInteractions(r.getInteractions());
+        f.setAdministrationRoute(r.getAdministrationRoute());
+        f.setRequiresPrescription(r.getRequiresPrescription());
         f.setCategory(r.getCategory());
         f.setPresentation(r.getPresentation());
         if (r.getPrice() != null) {

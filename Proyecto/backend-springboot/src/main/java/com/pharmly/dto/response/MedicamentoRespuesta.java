@@ -12,6 +12,10 @@ public class MedicamentoRespuesta {
     private final String precautions;
     private final String doseGuidance;
     private final String sideEffects;
+    private final String contraindications;
+    private final String interactions;
+    private final String administrationRoute;
+    private final Boolean requiresPrescription;
     private final String category;
     private final String presentation;
     private final BigDecimal price;
@@ -25,6 +29,10 @@ public class MedicamentoRespuesta {
             String precautions,
             String doseGuidance,
             String sideEffects,
+            String contraindications,
+            String interactions,
+            String administrationRoute,
+            Boolean requiresPrescription,
             String category,
             String presentation,
             BigDecimal price) {
@@ -36,6 +44,10 @@ public class MedicamentoRespuesta {
         this.precautions = precautions;
         this.doseGuidance = doseGuidance;
         this.sideEffects = sideEffects;
+        this.contraindications = contraindications;
+        this.interactions = interactions;
+        this.administrationRoute = administrationRoute;
+        this.requiresPrescription = requiresPrescription;
         this.category = category;
         this.presentation = presentation;
         this.price = price;
@@ -71,6 +83,22 @@ public class MedicamentoRespuesta {
 
     public String getSideEffects() {
         return sideEffects;
+    }
+
+    public String getContraindications() {
+        return contraindications;
+    }
+
+    public String getInteractions() {
+        return interactions;
+    }
+
+    public String getAdministrationRoute() {
+        return administrationRoute;
+    }
+
+    public Boolean getRequiresPrescription() {
+        return requiresPrescription;
     }
 
     public String getCategory() {

@@ -1,127 +1,629 @@
--- Catálogo de medicamentos (categorías alineadas al filtro del frontend: analgesicos, antibioticos, etc.)
+-- ============================================================
+-- PHARMLY: datos iniciales (H2 en memoria)
+-- ============================================================
+
+-- ===== Usuarios (login) =====
+INSERT INTO usuario (nombre_usuario, contrasenia, tipo, nombre, correo) VALUES
+('admin', 'admin123', 'ADMIN', 'Administrador del Sistema', 'admin@pharmly.pe'),
+('estudiante', 'estudiante123', 'ESTUDIANTE', 'Estudiante de Farmacologia', 'estudiante@pharmly.pe'),
+('usuario', 'usuario123', 'USUARIO_GENERAL', 'Usuario General', 'usuario@pharmly.pe');
+
+-- ===== Categorías de medicamentos =====
+INSERT INTO categoria_medicamento (clave, nombre) VALUES
+('analgesicos', 'Analgésicos'),
+('antiinflamatorios', 'Antiinflamatorios'),
+('antibioticos', 'Antibióticos'),
+('cardiovasculares', 'Cardiovasculares'),
+('neurologicos', 'Neurológicos'),
+('dermatologicos', 'Dermatológicos'),
+('antialergicos', 'Antialérgicos'),
+('gastrointestinales', 'Gastrointestinales'),
+('endocrinos', 'Endocrinos'),
+('respiratorios', 'Respiratorios');
+
+-- ===== Categorías de dolencias =====
+INSERT INTO categoria_dolencia (id, nombre) VALUES
+(1, 'Respiratorias'),
+(2, 'Digestivas'),
+(3, 'Neurológicas'),
+(4, 'Cardiovasculares'),
+(5, 'Metabólicas'),
+(6, 'Alérgicas y dermatológicas'),
+(7, 'Osteomusculares');
+
+-- ===== Dolencias =====
+INSERT INTO dolencia (nombre, categoria_id, descripcion) VALUES
+('Gripe', 1, 'Infección viral de las vías respiratorias; cursa con fiebre, malestar y congestión. No se trata con antibióticos.'),
+('Asma', 1, 'Enfermedad crónica que inflama y estrecha las vías respiratorias; produce silbidos y dificultad para respirar.'),
+('Bronquitis', 1, 'Inflamación de los bronquios, generalmente de origen viral, con tos persistente.'),
+('Faringitis', 1, 'Inflamación de la faringe (garganta), con dolor al tragar.'),
+('Gastritis', 2, 'Inflamación de la mucosa del estómago; produce ardor y molestias abdominales.'),
+('Reflujo gastroesofágico', 2, 'Retorno del contenido ácido del estómago hacia el esófago; causa acidez.'),
+('Diarrea aguda', 2, 'Aumento de deposiciones líquidas; su principal riesgo es la deshidratación.'),
+('Migraña', 3, 'Dolor de cabeza intenso y pulsátil, a menudo con náuseas y sensibilidad a la luz.'),
+('Epilepsia', 3, 'Trastorno neurológico con crisis convulsivas recurrentes; requiere tratamiento especializado.'),
+('Hipertensión arterial', 4, 'Elevación sostenida de la presión arterial; suele ser asintomática y requiere control periódico.'),
+('Diabetes tipo 2', 5, 'Niveles elevados de glucosa en sangre por resistencia a la insulina; se maneja con dieta, ejercicio y fármacos.'),
+('Anemia ferropénica', 5, 'Disminución de hemoglobina por falta de hierro; produce cansancio y palidez.'),
+('Rinitis alérgica', 6, 'Reacción alérgica nasal con estornudos, picazón y congestión.'),
+('Dermatitis', 6, 'Inflamación de la piel con enrojecimiento y picazón.'),
+('Lumbalgia', 7, 'Dolor en la zona baja de la espalda, frecuentemente de origen muscular.'),
+('Artritis', 7, 'Inflamación de las articulaciones con dolor y rigidez.');
+
+-- ===== Medicamentos (ficha detallada) =====
 INSERT INTO medicamento (
     nombre, nombre_generico, descripcion, uso_comun, precauciones, orientacion_dosis, efectos_secundarios,
-    categoria, presentacion, precio
-) VALUES (
-    'Paracetamol',
-    'acetaminofén',
-    'Analgésico y antipirético de venta común.',
-    'Dolor leve a moderado o fiebre, según indicación médica o prospecto.',
-    'No exceder la dosis; consultar si hay enfermedad hepática o consumo de alcohol.',
-    'Orientación general: respetar siempre el prospecto o indicación profesional; no automedicarse sin criterio.',
-    'En dosis habituales suele ser bien tolerado; reacciones alérgicas son poco frecuentes. Consulte el prospecto.',
-    'analgesicos',
-    'Comprimidos 500 mg',
-    8.50
-);
+    contraindicaciones, interacciones, via_administracion, requiere_receta, categoria, presentacion, precio
+) VALUES
+('Paracetamol', 'acetaminofén',
+ 'Analgésico y antipirético de venta común.',
+ 'Dolor leve a moderado o fiebre, según indicación médica o prospecto.',
+ 'No exceder la dosis; consultar si hay enfermedad hepática o consumo de alcohol.',
+ 'Adultos: habitualmente 500 mg a 1 g cada 6-8 horas, sin superar 4 g al día. Respetar siempre el prospecto.',
+ 'En dosis habituales suele ser bien tolerado; reacciones alérgicas son poco frecuentes.',
+ 'Enfermedad hepática grave; alergia al paracetamol.',
+ 'Alcohol (aumenta riesgo hepático), warfarina y otros productos que también contengan paracetamol.',
+ 'Oral', FALSE, 'analgesicos', 'Comprimidos 500 mg', 8.50),
 
-INSERT INTO medicamento (
-    nombre, nombre_generico, descripcion, uso_comun, precauciones, orientacion_dosis, efectos_secundarios,
-    categoria, presentacion, precio
-) VALUES (
-    'Ibuprofeno',
-    'ibuprofeno',
-    'Antiinflamatorio no esteroideo (AINE).',
-    'Dolor inflamatorio leve, según indicación.',
-    'Tomar con alimento; evitar si hay úlcera activa o ciertas condiciones renales sin supervisión médica.',
-    'Orientación general: usar la menor dosis efectiva por el menor tiempo posible, según prospecto o médico.',
-    'Puede causar molestias digestivas; otros efectos son menos frecuentes. Ver prospecto y contraindicaciones.',
-    'antiinflamatorios',
-    'Comprimidos 400 mg',
-    12.90
-);
+('Ibuprofeno', 'ibuprofeno',
+ 'Antiinflamatorio no esteroideo (AINE).',
+ 'Dolor inflamatorio leve, fiebre y molestias musculares, según indicación.',
+ 'Tomar con alimento; evitar si hay úlcera activa o problemas renales sin supervisión médica.',
+ 'Adultos: habitualmente 400 mg cada 8 horas. Usar la menor dosis efectiva por el menor tiempo posible.',
+ 'Puede causar molestias digestivas; otros efectos son menos frecuentes.',
+ 'Úlcera gastroduodenal activa, insuficiencia renal grave, tercer trimestre del embarazo.',
+ 'Anticoagulantes, corticoides, antihipertensivos y otros AINE.',
+ 'Oral', FALSE, 'antiinflamatorios', 'Comprimidos 400 mg', 12.90),
 
-INSERT INTO medicamento (
-    nombre, nombre_generico, descripcion, uso_comun, precauciones, orientacion_dosis, efectos_secundarios,
-    categoria, presentacion, precio
-) VALUES (
-    'Amoxicilina',
-    'amoxicilina',
-    'Antibiótico betalactámico de amplio espectro.',
-    'Infecciones bacterianas según prescripción; completar el tratamiento indicado.',
-    'No usar sin indicación médica; informar alergia a penicilinas.',
-    'Dosis y duración según criterio profesional y peso/edad del paciente.',
-    'Diarrea leve, náuseas o erupciones cutáneas pueden aparecer; ante reacción grave suspender y acudir a urgencias.',
-    'antibioticos',
-    'Cápsulas 500 mg',
-    24.00
-);
+('Amoxicilina', 'amoxicilina',
+ 'Antibiótico betalactámico de amplio espectro.',
+ 'Infecciones bacterianas según prescripción; completar el tratamiento indicado.',
+ 'No usar sin indicación médica; informar alergia a penicilinas.',
+ 'Dosis y duración según criterio profesional y peso/edad del paciente.',
+ 'Diarrea leve, náuseas o erupciones cutáneas; ante reacción grave suspender y acudir a urgencias.',
+ 'Alergia a penicilinas o cefalosporinas.',
+ 'Puede reducir la eficacia de anticonceptivos orales; interacción con alopurinol y metotrexato.',
+ 'Oral', TRUE, 'antibioticos', 'Cápsulas 500 mg', 24.00),
 
-INSERT INTO medicamento (
-    nombre, nombre_generico, descripcion, uso_comun, precauciones, orientacion_dosis, efectos_secundarios,
-    categoria, presentacion, precio
-) VALUES (
-    'Losartán',
-    'losartán',
-    'Antihipertensivo (bloqueante del receptor de angiotensina II).',
-    'Hipertensión arterial según pauta médica.',
-    'Controlar función renal y potasio; informar embarazo o lactancia.',
-    'No modificar la dosis sin supervisión; controles periódicos de presión arterial.',
-    'Mareo leve, fatiga o elevación de potasio en sangre son posibles; seguir controles.',
-    'cardiovasculares',
-    'Comprimidos 50 mg',
-    18.75
-);
+('Losartán', 'losartán',
+ 'Antihipertensivo (bloqueante del receptor de angiotensina II).',
+ 'Hipertensión arterial según pauta médica.',
+ 'Controlar función renal y potasio; informar embarazo o lactancia.',
+ 'Habitualmente 50 mg una vez al día; no modificar la dosis sin supervisión.',
+ 'Mareo leve, fatiga o elevación de potasio en sangre son posibles.',
+ 'Embarazo, hiperpotasemia, alergia al principio activo.',
+ 'Diuréticos ahorradores de potasio, suplementos de potasio y AINE.',
+ 'Oral', TRUE, 'cardiovasculares', 'Comprimidos 50 mg', 18.75),
 
-INSERT INTO medicamento (
-    nombre, nombre_generico, descripcion, uso_comun, precauciones, orientacion_dosis, efectos_secundarios,
-    categoria, presentacion, precio
-) VALUES (
-    'Carbamazepina',
-    'carbamazepina',
-    'Antiepiléptico también usado en neuralgia.',
-    'Epilepsia o dolor neuropático solo con indicación especializada.',
-    'Requiere controles de sangre; interacciones múltiples con otros fármacos.',
-    'Ajuste gradual según respuesta y tolerancia; no interrumpir de golpe.',
-    'Somnolencia, visión borrosa o reacciones cutáneas graves (poco frecuentes) requieren valoración urgente.',
-    'neurologicos',
-    'Comprimidos 200 mg',
-    35.20
-);
+('Carbamazepina', 'carbamazepina',
+ 'Antiepiléptico también usado en neuralgia del trigémino.',
+ 'Epilepsia o dolor neuropático solo con indicación especializada.',
+ 'Requiere controles de sangre; interacciones múltiples con otros fármacos.',
+ 'Ajuste gradual según respuesta y tolerancia; no interrumpir de golpe.',
+ 'Somnolencia, visión borrosa o reacciones cutáneas graves (poco frecuentes) requieren valoración urgente.',
+ 'Bloqueo auriculoventricular, antecedentes de depresión de médula ósea.',
+ 'Anticonceptivos orales, warfarina y otros antiepilépticos; reduce el efecto de varios fármacos.',
+ 'Oral', TRUE, 'neurologicos', 'Comprimidos 200 mg', 35.20),
 
-INSERT INTO medicamento (
-    nombre, nombre_generico, descripcion, uso_comun, precauciones, orientacion_dosis, efectos_secundarios,
-    categoria, presentacion, precio
-) VALUES (
-    'Loratadina',
-    'loratadina',
-    'Antihistamínico de segunda generación.',
-    'Rinitis alérgica o urticaria según prospecto o indicación.',
-    'Precaución en insuficiencia hepática grave; consultar interacciones.',
-    'Dosis habitual en adultos según presentación; no duplicar con otros antihistamínicos.',
-    'Somnolencia leve o sequedad de boca en algunas personas.',
-    'dermatologicos',
-    'Jarabe 5 mg / 5 ml',
-    15.40
-);
+('Loratadina', 'loratadina',
+ 'Antihistamínico de segunda generación.',
+ 'Rinitis alérgica o urticaria según prospecto o indicación.',
+ 'Precaución en insuficiencia hepática grave; consultar interacciones.',
+ 'Adultos: habitualmente 10 mg una vez al día; no duplicar con otros antihistamínicos.',
+ 'Somnolencia leve o sequedad de boca en algunas personas.',
+ 'Alergia a la loratadina.',
+ 'Ketoconazol y eritromicina pueden aumentar sus niveles en sangre.',
+ 'Oral', FALSE, 'antialergicos', 'Jarabe 5 mg / 5 ml', 15.40),
 
--- Módulo Aprendizaje (preguntas y opciones)
-INSERT INTO pregunta_aprendizaje (enunciado, explicacion)
-VALUES (
-    '¿Para qué se usa principalmente el paracetamol?',
-    'El paracetamol (acetaminofén) se usa sobre todo para reducir fiebre y aliviar dolores leves a moderados.'
-);
+('Omeprazol', 'omeprazol',
+ 'Inhibidor de la bomba de protones; reduce la producción de ácido gástrico.',
+ 'Acidez, gastritis y reflujo gastroesofágico según indicación.',
+ 'No usar de forma prolongada sin control médico.',
+ 'Habitualmente 20 mg una vez al día antes del desayuno.',
+ 'Dolor de cabeza, náuseas o diarrea leve en algunas personas.',
+ 'Alergia al omeprazol u otros inhibidores de la bomba de protones.',
+ 'Clopidogrel (puede reducir su efecto), ketoconazol y hierro oral.',
+ 'Oral', FALSE, 'gastrointestinales', 'Cápsulas 20 mg', 14.60),
 
-INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES (1, 'Reducir la presión arterial de forma permanente', FALSE);
-INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES (1, 'Aliviar fiebre y dolores leves a moderados', TRUE);
-INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES (1, 'Reemplazar antibióticos en infecciones bacterianas', FALSE);
+('Metformina', 'metformina',
+ 'Antidiabético oral de primera línea para diabetes tipo 2.',
+ 'Control de la glucosa en diabetes tipo 2, junto con dieta y ejercicio.',
+ 'Controlar función renal; suspender ante procedimientos con contraste yodado según indicación.',
+ 'Inicio habitual 500-850 mg con las comidas; ajuste progresivo según tolerancia.',
+ 'Molestias digestivas al inicio (náuseas, diarrea); suelen disminuir con el tiempo.',
+ 'Insuficiencia renal grave, acidosis metabólica.',
+ 'Alcohol en exceso y medios de contraste yodados aumentan el riesgo de acidosis láctica.',
+ 'Oral', TRUE, 'endocrinos', 'Comprimidos 850 mg', 16.30),
 
-INSERT INTO pregunta_aprendizaje (enunciado, explicacion)
-VALUES (
-    '¿Qué precaución es frecuente con los AINE como el ibuprofeno?',
-    'Pueden irritar el estómago; por eso suele recomendarse tomarlos con alimento y no usarlos sin control si hay antecedentes de úlcera.'
-);
+('Salbutamol', 'salbutamol',
+ 'Broncodilatador de acción rápida (agonista beta-2).',
+ 'Alivio rápido de crisis de asma o broncoespasmo.',
+ 'Si se necesita con mucha frecuencia, el asma puede estar mal controlada: consultar.',
+ 'Inhalación según necesidad e indicación; respetar el número máximo de aplicaciones del prospecto.',
+ 'Temblor fino, palpitaciones o nerviosismo transitorios.',
+ 'Alergia al salbutamol.',
+ 'Betabloqueantes pueden reducir su efecto; precaución con otros estimulantes.',
+ 'Inhalatoria', TRUE, 'respiratorios', 'Inhalador 100 mcg/dosis', 28.90),
 
-INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES (2, 'Se deben tomar siempre en ayunas para mayor efecto', FALSE);
-INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES (2, 'Pueden irritar el estómago; conviene precaución y seguir indicaciones', TRUE);
-INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES (2, 'No tienen interacción con otros medicamentos', FALSE);
+('Aspirina', 'ácido acetilsalicílico',
+ 'Analgésico, antipirético y antiagregante plaquetario.',
+ 'Dolor leve, fiebre y, en dosis bajas, prevención cardiovascular bajo indicación médica.',
+ 'No usar en menores con infecciones virales (riesgo de síndrome de Reye); precaución con problemas gástricos.',
+ 'Según uso: dolor/fiebre en adultos 500 mg cada 6-8 horas; prevención cardiovascular en dosis bajas indicadas por el médico.',
+ 'Molestias gástricas y mayor tendencia al sangrado.',
+ 'Úlcera activa, trastornos de coagulación, menores de 16 años con cuadros virales.',
+ 'Anticoagulantes, otros AINE y corticoides aumentan el riesgo de sangrado digestivo.',
+ 'Oral', FALSE, 'analgesicos', 'Comprimidos 500 mg', 9.80);
 
-INSERT INTO pregunta_aprendizaje (enunciado, explicacion)
-VALUES (
-    '¿Cuál es una presentación común del ibuprofeno?',
-    'El ibuprofeno suele encontrarse en comprimidos de 400 mg, aunque existen otras presentaciones.'
-);
+-- ============================================================
+-- Módulo Aprendizaje: 100 preguntas de quiz (medicina, dolencias
+-- y medicamentos), cada una con 3 alternativas.
+-- ============================================================
+INSERT INTO pregunta_aprendizaje (id, enunciado, explicacion) VALUES
+(1, '¿Para qué se usa principalmente el paracetamol?', 'El paracetamol (acetaminofén) se usa sobre todo para reducir fiebre y aliviar dolores leves a moderados.'),
+(2, '¿Qué órgano puede dañarse si se excede la dosis de paracetamol?', 'En sobredosis, el paracetamol es tóxico para el hígado, sobre todo si se combina con alcohol.'),
+(3, '¿Qué tipo de medicamento es el ibuprofeno?', 'El ibuprofeno es un antiinflamatorio no esteroideo (AINE) que alivia dolor, fiebre e inflamación.'),
+(4, '¿Qué precaución es frecuente con los AINE como el ibuprofeno?', 'Pueden irritar el estómago; se recomienda tomarlos con alimento y evitar su uso prolongado sin control.'),
+(5, '¿Qué tipo de medicamento es la amoxicilina?', 'La amoxicilina es un antibiótico betalactámico usado para tratar infecciones bacterianas.'),
+(6, '¿Qué debe informar un paciente antes de recibir amoxicilina?', 'Es clave informar si existe alergia a penicilinas, ya que puede producir reacciones graves.'),
+(7, '¿Para qué se usa el losartán?', 'El losartán es un antihipertensivo que ayuda a controlar la presión arterial elevada.'),
+(8, '¿Para qué se usa principalmente la carbamazepina?', 'La carbamazepina es un antiepiléptico, también usado en algunos dolores neuropáticos.'),
+(9, '¿Qué tipo de medicamento es la loratadina?', 'La loratadina es un antihistamínico que alivia síntomas de alergia como estornudos y picazón.'),
+(10, '¿Para qué se usa el omeprazol?', 'El omeprazol reduce la producción de ácido del estómago; se usa en gastritis, acidez y reflujo.'),
+(11, '¿Cuál es el medicamento inicial más usado en diabetes tipo 2?', 'La metformina es el antidiabético oral de primera línea en diabetes tipo 2.'),
+(12, '¿Para qué sirve el salbutamol inhalado?', 'El salbutamol es un broncodilatador de acción rápida que alivia las crisis de asma.'),
+(13, '¿Qué efecto adicional tiene la aspirina en dosis bajas?', 'En dosis bajas, la aspirina actúa como antiagregante plaquetario para prevención cardiovascular.'),
+(14, '¿Por qué no se da aspirina a menores con infecciones virales?', 'Por el riesgo de síndrome de Reye, una complicación grave que afecta hígado y cerebro.'),
+(15, '¿Para qué se usa el amlodipino?', 'El amlodipino es un antihipertensivo del grupo de los bloqueadores de canales de calcio.'),
+(16, '¿Para qué se usa la atorvastatina?', 'La atorvastatina es una estatina que reduce el colesterol en sangre.'),
+(17, '¿Qué tipo de medicamento es la cetirizina?', 'La cetirizina es un antihistamínico usado para aliviar síntomas de alergia.'),
+(18, '¿Qué tipo de fármaco es la prednisona?', 'La prednisona es un corticoide con potente efecto antiinflamatorio e inmunosupresor.'),
+(19, '¿Para qué enfermedad es esencial la insulina?', 'La insulina es esencial en la diabetes tipo 1 y en algunos casos de diabetes tipo 2.'),
+(20, '¿A qué grupo pertenece el diazepam?', 'El diazepam es una benzodiacepina con efecto ansiolítico, sedante y relajante muscular.'),
+(21, '¿Qué tipo de medicamento es la azitromicina?', 'La azitromicina es un antibiótico macrólido usado en infecciones respiratorias, entre otras.'),
+(22, '¿Qué tipo de medicamento es el ciprofloxacino?', 'El ciprofloxacino es un antibiótico de la familia de las fluoroquinolonas.'),
+(23, '¿Qué tipo de medicamento es el naproxeno?', 'El naproxeno es un AINE con efecto analgésico y antiinflamatorio de mayor duración.'),
+(24, '¿Qué tipo de fármaco es la dexametasona?', 'La dexametasona es un corticoide potente usado en inflamaciones y alergias graves.'),
+(25, '¿Para qué se usan medicamentos como la famotidina?', 'La famotidina reduce el ácido gástrico y se usa para acidez y úlceras.'),
+(26, '¿Para qué sirven las sales de rehidratación oral?', 'Reponen agua y electrolitos perdidos, especialmente durante cuadros de diarrea.'),
+(27, '¿Qué suplemento se usa para tratar la anemia ferropénica?', 'La anemia ferropénica se trata con suplementos de hierro, además de mejorar la dieta.'),
+(28, '¿Qué suplemento se recomienda en el embarazo para prevenir defectos del tubo neural?', 'El ácido fólico se recomienda antes y durante el embarazo temprano.'),
+(29, '¿Qué caracteriza a la clorfenamina frente a antihistamínicos modernos?', 'La clorfenamina es de primera generación y produce más somnolencia que las modernas.'),
+(30, '¿Para qué se usa el metamizol?', 'El metamizol es un analgésico y antipirético usado para dolor y fiebre, bajo indicación.'),
+(31, '¿Qué tipo de medicamento es el enalapril?', 'El enalapril es un antihipertensivo inhibidor de la enzima convertidora de angiotensina (IECA).'),
+(32, '¿Qué efecto secundario clásico produce el enalapril en algunas personas?', 'El enalapril puede producir tos seca persistente; en ese caso se valora cambiar de fármaco.'),
+(33, '¿Para qué se usa el albendazol?', 'El albendazol es un antiparasitario usado contra parásitos intestinales.'),
+(34, '¿Para qué se usa el fluconazol?', 'El fluconazol es un antimicótico que trata infecciones por hongos.'),
+(35, '¿Para qué se usa el aciclovir?', 'El aciclovir es un antiviral usado en infecciones por virus del herpes.'),
+(36, '¿Para qué se usa la crema de hidrocortisona?', 'La hidrocortisona tópica alivia inflamación y picazón en afecciones de la piel.'),
+(37, '¿Cuál es una presentación común del ibuprofeno?', 'El ibuprofeno suele encontrarse en comprimidos de 400 mg, aunque hay otras presentaciones.'),
+(38, '¿Qué medicamento puede reducir el efecto del clopidogrel si se toman juntos?', 'El omeprazol puede reducir el efecto antiagregante del clopidogrel.'),
+(39, '¿Qué bebida aumenta el riesgo de daño hepático combinada con paracetamol?', 'El alcohol aumenta el riesgo de toxicidad hepática del paracetamol.'),
+(40, '¿Por qué vía se administra habitualmente el salbutamol en crisis de asma?', 'Se administra por vía inhalatoria para que actúe rápidamente en los bronquios.'),
+(41, '¿Qué microorganismo causa la gripe?', 'La gripe es causada por el virus de la influenza; por eso los antibióticos no la curan.'),
+(42, '¿Sirven los antibióticos para curar la gripe?', 'No: la gripe es viral y los antibióticos solo actúan contra bacterias.'),
+(43, '¿Cómo suele ser el dolor de la migraña?', 'La migraña produce dolor pulsátil, a menudo en un lado de la cabeza, con náuseas y fotofobia.'),
+(44, '¿Qué es la gastritis?', 'La gastritis es la inflamación de la mucosa que recubre el estómago.'),
+(45, '¿Qué es la hipertensión arterial?', 'Es la elevación sostenida de la presión arterial por encima de los valores normales.'),
+(46, '¿Por qué se llama a la hipertensión "el enemigo silencioso"?', 'Porque generalmente no produce síntomas, aunque dañe arterias y órganos con el tiempo.'),
+(47, '¿Qué caracteriza a la diabetes tipo 2?', 'Niveles elevados de glucosa en sangre, generalmente por resistencia a la insulina.'),
+(48, '¿Qué ocurre en las vías respiratorias durante una crisis de asma?', 'Los bronquios se inflaman y estrechan, dificultando el paso del aire.'),
+(49, '¿Qué es la anemia?', 'Es la disminución de hemoglobina o glóbulos rojos; produce cansancio y palidez.'),
+(50, '¿Qué es una alergia?', 'Es una reacción exagerada del sistema inmunitario frente a sustancias normalmente inofensivas.'),
+(51, '¿A partir de qué temperatura corporal se considera fiebre en adultos?', 'Se considera fiebre a partir de 38 °C aproximadamente; entre 37.5 y 38 suele llamarse febrícula.'),
+(52, '¿Cuál es un signo típico de deshidratación?', 'Boca seca, poca orina y mareo son signos frecuentes de deshidratación.'),
+(53, '¿Qué es la artritis?', 'Es la inflamación de las articulaciones, que produce dolor, hinchazón y rigidez.'),
+(54, '¿Qué parte del cuerpo afecta la otitis?', 'La otitis es la inflamación o infección del oído.'),
+(55, '¿Qué es la conjuntivitis?', 'Es la inflamación de la conjuntiva del ojo; produce enrojecimiento y secreción.'),
+(56, '¿Qué zona afecta la faringitis?', 'La faringitis afecta la garganta (faringe) y suele causar dolor al tragar.'),
+(57, '¿Qué estructura se inflama en la bronquitis?', 'En la bronquitis se inflaman los bronquios, produciendo tos persistente.'),
+(58, '¿Qué órgano afecta principalmente la neumonía?', 'La neumonía es una infección de los pulmones que puede ser grave.'),
+(59, '¿Qué es el insomnio?', 'Es la dificultad para conciliar o mantener el sueño de forma adecuada.'),
+(60, '¿Qué es el estreñimiento?', 'Es la dificultad o disminución de la frecuencia para evacuar el intestino.'),
+(61, '¿Cuál es el principal riesgo de una diarrea aguda intensa?', 'La deshidratación es el principal riesgo, sobre todo en niños y adultos mayores.'),
+(62, '¿Qué es la lumbalgia?', 'Es el dolor localizado en la zona baja de la espalda, muy frecuente y generalmente muscular.'),
+(63, '¿Qué es la dermatitis?', 'Es la inflamación de la piel, con enrojecimiento, picazón o descamación.'),
+(64, '¿Qué síntomas produce la rinitis alérgica?', 'Estornudos, picazón nasal, congestión y secreción acuosa son típicos de la rinitis alérgica.'),
+(65, '¿Qué glándula funciona lentamente en el hipotiroidismo?', 'En el hipotiroidismo, la glándula tiroides produce menos hormonas de lo normal.'),
+(66, '¿Qué caracteriza a la osteoporosis?', 'Los huesos pierden densidad y se vuelven frágiles, con mayor riesgo de fracturas.'),
+(67, '¿Qué tipo de microorganismo causa la varicela?', 'La varicela es causada por un virus (varicela-zóster).'),
+(68, '¿Qué es la caries dental?', 'Es el daño progresivo del esmalte del diente causado por ácidos de las bacterias.'),
+(69, '¿Cómo suele sentirse la cefalea tensional?', 'Como una presión u opresión en ambos lados de la cabeza, ligada a estrés o tensión muscular.'),
+(70, '¿Qué ocurre en el reflujo gastroesofágico?', 'El contenido ácido del estómago sube hacia el esófago y produce ardor o acidez.'),
+(71, '¿Qué es un analgésico?', 'Un analgésico es un medicamento que alivia o reduce el dolor.'),
+(72, '¿Qué es un antipirético?', 'Un antipirético es un medicamento que reduce la fiebre.'),
+(73, '¿Contra qué actúan los antibióticos?', 'Los antibióticos actúan contra las bacterias; no sirven contra los virus.'),
+(74, '¿Qué hace un antiinflamatorio?', 'Reduce la inflamación, y habitualmente también el dolor que la acompaña.'),
+(75, '¿Para qué sirven los antihistamínicos?', 'Bloquean la histamina y alivian síntomas de alergia como picazón y estornudos.'),
+(76, '¿Qué es un medicamento genérico?', 'Es el que contiene el mismo principio activo que el de marca, con calidad equivalente y menor precio.'),
+(77, '¿Qué es la dosis de un medicamento?', 'Es la cantidad de medicamento que debe administrarse cada vez y con qué frecuencia.'),
+(78, '¿Qué significa administrar un medicamento por vía oral?', 'Significa tomarlo por la boca, por ejemplo en comprimidos, cápsulas o jarabes.'),
+(79, '¿Qué significa que un medicamento sea de uso tópico?', 'Que se aplica directamente sobre la piel o mucosas, como cremas o pomadas.'),
+(80, '¿Qué es una contraindicación?', 'Es una situación en la que un medicamento NO debe usarse por el riesgo que implica.'),
+(81, '¿Qué es un efecto secundario?', 'Es un efecto no deseado que puede aparecer junto al efecto buscado del medicamento.'),
+(82, '¿Qué es una interacción medicamentosa?', 'Es cuando un medicamento modifica el efecto de otro al tomarse juntos.'),
+(83, '¿Cuál es el principal riesgo de la automedicación?', 'Enmascarar enfermedades, sufrir efectos adversos o usar dosis incorrectas sin control profesional.'),
+(84, '¿Por qué se debe completar un tratamiento antibiótico?', 'Abandonarlo antes favorece que las bacterias sobrevivan y generen resistencia.'),
+(85, '¿Qué indica la fecha de vencimiento de un medicamento?', 'Hasta cuándo el fabricante garantiza su eficacia y seguridad; no debe usarse vencido.'),
+(86, '¿Cuál es un lugar adecuado para guardar medicamentos?', 'Un lugar fresco, seco y fuera del alcance de los niños; el baño no es recomendable por la humedad.'),
+(87, '¿Qué es una receta médica?', 'Es el documento con el que un profesional autorizado indica un medicamento y su pauta.'),
+(88, '¿Qué es un placebo?', 'Es una sustancia sin principio activo, usada como comparación en estudios clínicos.'),
+(89, '¿Para qué sirven las vacunas?', 'Entrenan al sistema inmunitario para prevenir enfermedades infecciosas.'),
+(90, '¿Qué es un jarabe?', 'Es una forma farmacéutica líquida y azucarada, frecuente en presentaciones pediátricas.'),
+(91, '¿Qué diferencia hay entre comprimido y cápsula?', 'El comprimido es polvo compactado; la cápsula tiene cubierta (a menudo de gelatina) con el fármaco dentro.'),
+(92, '¿Qué significa administrar un medicamento por vía intravenosa?', 'Significa aplicarlo directamente en una vena, con efecto rápido; se usa en ámbito sanitario.'),
+(93, 'Si un medicamento se toma "cada 8 horas", ¿cuántas veces al día se toma?', 'Cada 8 horas equivale a 3 tomas al día (24 ÷ 8 = 3).'),
+(94, '¿Qué es el prospecto de un medicamento?', 'Es el documento informativo que acompaña al medicamento con sus indicaciones, dosis y precauciones.'),
+(95, '¿Qué es una sobredosis?', 'Es la toma de una cantidad mayor a la recomendada, con riesgo de toxicidad grave.'),
+(96, '¿Por qué se recomienda evitar el alcohol con muchos medicamentos?', 'El alcohol puede potenciar efectos sedantes o aumentar la toxicidad de varios fármacos.'),
+(97, '¿Qué debe hacer una embarazada antes de tomar cualquier medicamento?', 'Consultar siempre con su médico, porque algunos fármacos pueden afectar al bebé.'),
+(98, '¿Qué profesional está especializado en dispensar medicamentos y orientar sobre su uso?', 'El químico farmacéutico es el profesional que dispensa y orienta sobre los medicamentos.'),
+(99, '¿Qué síntoma alivian los antitusivos?', 'Los antitusivos se usan para calmar la tos seca o irritativa.'),
+(100, '¿Para qué se usan los laxantes?', 'Los laxantes ayudan a aliviar el estreñimiento facilitando la evacuación intestinal.');
 
-INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES (3, 'Comprimidos 400 mg', TRUE);
-INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES (3, 'Crema 1%', FALSE);
-INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES (3, 'Jarabe de insulina', FALSE);
+-- Opciones (3 por pregunta; la posición de la correcta varía)
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(1, 'Reducir la presión arterial de forma permanente', FALSE),
+(1, 'Aliviar fiebre y dolores leves a moderados', TRUE),
+(1, 'Reemplazar antibióticos en infecciones bacterianas', FALSE),
+(2, 'El hígado', TRUE),
+(2, 'Los pulmones', FALSE),
+(2, 'Los huesos', FALSE),
+(3, 'Un antibiótico de amplio espectro', FALSE),
+(3, 'Un corticoide', FALSE),
+(3, 'Un antiinflamatorio no esteroideo (AINE)', TRUE),
+(4, 'Pueden irritar el estómago; conviene tomarlos con alimento', TRUE),
+(4, 'Se deben tomar siempre en ayunas para mayor efecto', FALSE),
+(4, 'No tienen interacción con otros medicamentos', FALSE),
+(5, 'Un antihistamínico', FALSE),
+(5, 'Un antibiótico', TRUE),
+(5, 'Un antihipertensivo', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(6, 'Si es alérgico a las penicilinas', TRUE),
+(6, 'Si le gusta el sabor del jarabe', FALSE),
+(6, 'Si practica deporte con frecuencia', FALSE),
+(7, 'Para tratar infecciones urinarias', FALSE),
+(7, 'Para controlar la hipertensión arterial', TRUE),
+(7, 'Para aliviar la tos seca', FALSE),
+(8, 'Tratar la epilepsia', TRUE),
+(8, 'Bajar el colesterol', FALSE),
+(8, 'Tratar el estreñimiento', FALSE),
+(9, 'Un antihistamínico para alergias', TRUE),
+(9, 'Un antibiótico macrólido', FALSE),
+(9, 'Un analgésico opioide', FALSE),
+(10, 'Aumentar el ácido del estómago', FALSE),
+(10, 'Reducir la producción de ácido gástrico', TRUE),
+(10, 'Estimular el apetito', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(11, 'La insulina inhalada', FALSE),
+(11, 'La metformina', TRUE),
+(11, 'El omeprazol', FALSE),
+(12, 'Aliviar rápidamente las crisis de asma', TRUE),
+(12, 'Curar la neumonía', FALSE),
+(12, 'Reducir la acidez estomacal', FALSE),
+(13, 'Antiagregante plaquetario (prevención cardiovascular)', TRUE),
+(13, 'Antibiótico de refuerzo', FALSE),
+(13, 'Broncodilatador', FALSE),
+(14, 'Porque produce caries', FALSE),
+(14, 'Por el riesgo de síndrome de Reye', TRUE),
+(14, 'Porque no tiene efecto en menores', FALSE),
+(15, 'Controlar la presión arterial', TRUE),
+(15, 'Tratar infecciones por hongos', FALSE),
+(15, 'Aliviar la picazón de la piel', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(16, 'Reducir el colesterol', TRUE),
+(16, 'Subir las defensas', FALSE),
+(16, 'Tratar la anemia', FALSE),
+(17, 'Un antihistamínico', TRUE),
+(17, 'Un antiparasitario', FALSE),
+(17, 'Un anticoagulante', FALSE),
+(18, 'Un corticoide antiinflamatorio', TRUE),
+(18, 'Una vitamina', FALSE),
+(18, 'Un antiviral', FALSE),
+(19, 'La diabetes (especialmente tipo 1)', TRUE),
+(19, 'La gastritis crónica', FALSE),
+(19, 'La rinitis alérgica', FALSE),
+(20, 'Las benzodiacepinas (ansiolíticos)', TRUE),
+(20, 'Los antibióticos betalactámicos', FALSE),
+(20, 'Las estatinas', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(21, 'Un antimicótico', FALSE),
+(21, 'Un antibiótico macrólido', TRUE),
+(21, 'Un antihipertensivo', FALSE),
+(22, 'Un antibiótico (fluoroquinolona)', TRUE),
+(22, 'Un laxante suave', FALSE),
+(22, 'Un corticoide tópico', FALSE),
+(23, 'Un AINE de acción prolongada', TRUE),
+(23, 'Un antidepresivo', FALSE),
+(23, 'Un protector gástrico', FALSE),
+(24, 'Un corticoide potente', TRUE),
+(24, 'Un suplemento de hierro', FALSE),
+(24, 'Un antitusivo', FALSE),
+(25, 'Para reducir el ácido del estómago', TRUE),
+(25, 'Para dilatar los bronquios', FALSE),
+(25, 'Para conciliar el sueño', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(26, 'Reponer agua y electrolitos en diarreas', TRUE),
+(26, 'Aumentar la masa muscular', FALSE),
+(26, 'Sustituir las comidas del día', FALSE),
+(27, 'Suplementos de hierro', TRUE),
+(27, 'Vitamina C en altas dosis únicamente', FALSE),
+(27, 'Antibióticos de amplio espectro', FALSE),
+(28, 'El ácido fólico', TRUE),
+(28, 'El omeprazol', FALSE),
+(28, 'La cafeína', FALSE),
+(29, 'Produce más somnolencia', TRUE),
+(29, 'No produce ningún efecto secundario', FALSE),
+(29, 'Solo existe en forma inyectable', FALSE),
+(30, 'Para aliviar dolor y fiebre', TRUE),
+(30, 'Para tratar hongos en la piel', FALSE),
+(30, 'Para reducir el colesterol', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(31, 'Un antihipertensivo (IECA)', TRUE),
+(31, 'Un antidiabético oral', FALSE),
+(31, 'Un antihistamínico', FALSE),
+(32, 'Tos seca persistente', TRUE),
+(32, 'Crecimiento del cabello', FALSE),
+(32, 'Visión doble permanente', FALSE),
+(33, 'Tratar parásitos intestinales', TRUE),
+(33, 'Tratar la depresión', FALSE),
+(33, 'Bajar la presión arterial', FALSE),
+(34, 'Tratar infecciones por hongos', TRUE),
+(34, 'Tratar la hipertensión', FALSE),
+(34, 'Aliviar el dolor muscular', FALSE),
+(35, 'Tratar infecciones por virus del herpes', TRUE),
+(35, 'Tratar infecciones bacterianas urinarias', FALSE),
+(35, 'Reducir la fiebre del dengue', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(36, 'Aliviar inflamación y picazón en la piel', TRUE),
+(36, 'Blanquear los dientes', FALSE),
+(36, 'Curar infecciones internas', FALSE),
+(37, 'Comprimidos 400 mg', TRUE),
+(37, 'Crema 1%', FALSE),
+(37, 'Jarabe de insulina', FALSE),
+(38, 'El omeprazol', TRUE),
+(38, 'La vitamina C', FALSE),
+(38, 'El paracetamol', FALSE),
+(39, 'El alcohol', TRUE),
+(39, 'El agua mineral', FALSE),
+(39, 'El jugo de naranja', FALSE),
+(40, 'Vía inhalatoria', TRUE),
+(40, 'Vía intramuscular', FALSE),
+(40, 'Vía tópica (crema)', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(41, 'Un virus (influenza)', TRUE),
+(41, 'Una bacteria intestinal', FALSE),
+(41, 'Un hongo ambiental', FALSE),
+(42, 'No, porque la gripe es causada por un virus', TRUE),
+(42, 'Sí, siempre que haya fiebre', FALSE),
+(42, 'Sí, si se toman por más de 10 días', FALSE),
+(43, 'Pulsátil y a menudo en un lado de la cabeza', TRUE),
+(43, 'Solo en la planta de los pies', FALSE),
+(43, 'Exclusivamente al masticar', FALSE),
+(44, 'La inflamación de la mucosa del estómago', TRUE),
+(44, 'La inflamación de los bronquios', FALSE),
+(44, 'Una infección de la piel', FALSE),
+(45, 'La elevación sostenida de la presión arterial', TRUE),
+(45, 'El aumento del azúcar en sangre', FALSE),
+(45, 'La disminución de glóbulos rojos', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(46, 'Porque generalmente no produce síntomas', TRUE),
+(46, 'Porque solo aparece de noche', FALSE),
+(46, 'Porque afecta únicamente a niños', FALSE),
+(47, 'Glucosa elevada por resistencia a la insulina', TRUE),
+(47, 'Falta de glóbulos blancos', FALSE),
+(47, 'Exceso de calcio en los huesos', FALSE),
+(48, 'Los bronquios se inflaman y se estrechan', TRUE),
+(48, 'El corazón late más lento', FALSE),
+(48, 'El estómago produce más ácido', FALSE),
+(49, 'La disminución de hemoglobina o glóbulos rojos', TRUE),
+(49, 'El aumento de plaquetas', FALSE),
+(49, 'Una infección de la sangre', FALSE),
+(50, 'Una reacción exagerada del sistema inmunitario', TRUE),
+(50, 'Una infección causada por bacterias', FALSE),
+(50, 'Una enfermedad hereditaria de la piel', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(51, 'A partir de 38 °C aproximadamente', TRUE),
+(51, 'A partir de 36 °C', FALSE),
+(51, 'Solo por encima de 40 °C', FALSE),
+(52, 'Boca seca, poca orina y mareo', TRUE),
+(52, 'Aumento de apetito', FALSE),
+(52, 'Sudoración con buen estado general', FALSE),
+(53, 'La inflamación de las articulaciones', TRUE),
+(53, 'La inflamación del oído medio', FALSE),
+(53, 'El endurecimiento de las arterias', FALSE),
+(54, 'El oído', TRUE),
+(54, 'El riñón', FALSE),
+(54, 'La rodilla', FALSE),
+(55, 'La inflamación de la conjuntiva del ojo', TRUE),
+(55, 'Una infección de la garganta', FALSE),
+(55, 'Una alergia alimentaria', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(56, 'La garganta (faringe)', TRUE),
+(56, 'El intestino grueso', FALSE),
+(56, 'La columna vertebral', FALSE),
+(57, 'Los bronquios', TRUE),
+(57, 'Los riñones', FALSE),
+(57, 'Las articulaciones', FALSE),
+(58, 'Los pulmones', TRUE),
+(58, 'El hígado', FALSE),
+(58, 'El páncreas', FALSE),
+(59, 'La dificultad para conciliar o mantener el sueño', TRUE),
+(59, 'El exceso de sueño durante el día', FALSE),
+(59, 'Un trastorno de la memoria', FALSE),
+(60, 'La dificultad para evacuar el intestino', TRUE),
+(60, 'El aumento de deposiciones líquidas', FALSE),
+(60, 'El dolor al orinar', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(61, 'La deshidratación', TRUE),
+(61, 'El aumento de peso', FALSE),
+(61, 'La pérdida de cabello', FALSE),
+(62, 'El dolor en la zona baja de la espalda', TRUE),
+(62, 'El dolor de cabeza tensional', FALSE),
+(62, 'La inflamación del hombro', FALSE),
+(63, 'La inflamación de la piel', TRUE),
+(63, 'La infección de las uñas', FALSE),
+(63, 'La caída del cabello', FALSE),
+(64, 'Estornudos, picazón y congestión nasal', TRUE),
+(64, 'Dolor en las articulaciones', FALSE),
+(64, 'Visión borrosa y mareos', FALSE),
+(65, 'La tiroides', TRUE),
+(65, 'La hipófisis solamente', FALSE),
+(65, 'Las glándulas sudoríparas', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(66, 'Huesos frágiles con riesgo de fracturas', TRUE),
+(66, 'Músculos inflamados de forma crónica', FALSE),
+(66, 'Exceso de calcio en la sangre', FALSE),
+(67, 'Un virus (varicela-zóster)', TRUE),
+(67, 'Una bacteria de la piel', FALSE),
+(67, 'Un parásito intestinal', FALSE),
+(68, 'El daño del esmalte por ácidos bacterianos', TRUE),
+(68, 'Una mancha por café', FALSE),
+(68, 'La inflamación de la lengua', FALSE),
+(69, 'Como presión u opresión en ambos lados de la cabeza', TRUE),
+(69, 'Como punzadas en el abdomen', FALSE),
+(69, 'Como hormigueo en las manos', FALSE),
+(70, 'El ácido del estómago sube hacia el esófago', TRUE),
+(70, 'El intestino absorbe demasiada agua', FALSE),
+(70, 'La vesícula produce más bilis', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(71, 'Un medicamento que alivia el dolor', TRUE),
+(71, 'Un medicamento que produce sueño', FALSE),
+(71, 'Un medicamento contra las bacterias', FALSE),
+(72, 'Un medicamento que reduce la fiebre', TRUE),
+(72, 'Un medicamento que sube las defensas', FALSE),
+(72, 'Un medicamento para la tos', FALSE),
+(73, 'Contra las bacterias', TRUE),
+(73, 'Contra los virus', FALSE),
+(73, 'Contra el dolor crónico', FALSE),
+(74, 'Reduce la inflamación y el dolor asociado', TRUE),
+(74, 'Aumenta la presión arterial', FALSE),
+(74, 'Estimula el sistema inmune', FALSE),
+(75, 'Alivian síntomas de alergia bloqueando la histamina', TRUE),
+(75, 'Curan las infecciones virales', FALSE),
+(75, 'Fortalecen los huesos', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(76, 'El que tiene el mismo principio activo que el de marca', TRUE),
+(76, 'Un medicamento de menor calidad', FALSE),
+(76, 'Un medicamento sin principio activo', FALSE),
+(77, 'La cantidad y frecuencia con que debe tomarse', TRUE),
+(77, 'El precio del medicamento', FALSE),
+(77, 'El color del envase', FALSE),
+(78, 'Tomarlo por la boca', TRUE),
+(78, 'Aplicarlo sobre la piel', FALSE),
+(78, 'Inyectarlo en el músculo', FALSE),
+(79, 'Que se aplica sobre la piel o mucosas', TRUE),
+(79, 'Que se toma con las comidas', FALSE),
+(79, 'Que solo se vende con receta', FALSE),
+(80, 'Una situación en la que el medicamento no debe usarse', TRUE),
+(80, 'Una indicación de uso frecuente', FALSE),
+(80, 'Un efecto positivo adicional', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(81, 'Un efecto no deseado que acompaña al efecto buscado', TRUE),
+(81, 'El efecto principal del medicamento', FALSE),
+(81, 'Una alergia obligatoria en todos los pacientes', FALSE),
+(82, 'Cuando un medicamento modifica el efecto de otro', TRUE),
+(82, 'Cuando dos medicamentos tienen el mismo color', FALSE),
+(82, 'Cuando un medicamento caduca antes que otro', FALSE),
+(83, 'Efectos adversos y enmascarar enfermedades sin control profesional', TRUE),
+(83, 'Ahorrar tiempo en la farmacia', FALSE),
+(83, 'Ningún riesgo si el medicamento es conocido', FALSE),
+(84, 'Para evitar que las bacterias generen resistencia', TRUE),
+(84, 'Para gastar todo el envase comprado', FALSE),
+(84, 'Porque los antibióticos abren el apetito', FALSE),
+(85, 'Hasta cuándo se garantiza su eficacia y seguridad', TRUE),
+(85, 'La fecha en que fue fabricado', FALSE),
+(85, 'El día recomendado para empezar a tomarlo', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(86, 'Un lugar fresco, seco y fuera del alcance de los niños', TRUE),
+(86, 'El botiquín del baño, por la humedad', FALSE),
+(86, 'Cerca de la cocina, por comodidad', FALSE),
+(87, 'El documento con el que un profesional indica un medicamento', TRUE),
+(87, 'Una lista de precios de la farmacia', FALSE),
+(87, 'Un certificado de vacunación', FALSE),
+(88, 'Una sustancia sin principio activo usada en estudios', TRUE),
+(88, 'Un medicamento de doble potencia', FALSE),
+(88, 'Una vitamina de alta concentración', FALSE),
+(89, 'Prevenir enfermedades infecciosas entrenando al sistema inmune', TRUE),
+(89, 'Curar infecciones ya establecidas', FALSE),
+(89, 'Sustituir la alimentación saludable', FALSE),
+(90, 'Una forma farmacéutica líquida y azucarada', TRUE),
+(90, 'Una pastilla efervescente', FALSE),
+(90, 'Una inyección de acción lenta', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(91, 'El comprimido es polvo compactado; la cápsula tiene cubierta con el fármaco dentro', TRUE),
+(91, 'Son exactamente lo mismo', FALSE),
+(91, 'La cápsula siempre es más potente', FALSE),
+(92, 'Aplicarlo directamente en una vena', TRUE),
+(92, 'Tomarlo disuelto en agua', FALSE),
+(92, 'Aplicarlo debajo de la lengua', FALSE),
+(93, '3 veces al día', TRUE),
+(93, '8 veces al día', FALSE),
+(93, '1 vez al día', FALSE),
+(94, 'El documento informativo que acompaña al medicamento', TRUE),
+(94, 'La etiqueta con el precio', FALSE),
+(94, 'La caja exterior del producto', FALSE),
+(95, 'Tomar una cantidad mayor a la recomendada, con riesgo de toxicidad', TRUE),
+(95, 'Olvidar una dosis del tratamiento', FALSE),
+(95, 'Cambiar de marca de medicamento', FALSE);
+
+INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
+(96, 'Puede potenciar efectos sedantes o aumentar la toxicidad', TRUE),
+(96, 'El alcohol mejora la absorción de todos los fármacos', FALSE),
+(96, 'No hay ninguna razón, es solo costumbre', FALSE),
+(97, 'Consultar siempre con su médico antes de tomarlo', TRUE),
+(97, 'Tomar la mitad de la dosis por seguridad', FALSE),
+(97, 'Evitar solo los medicamentos inyectables', FALSE),
+(98, 'El químico farmacéutico', TRUE),
+(98, 'El nutricionista', FALSE),
+(98, 'El técnico de laboratorio', FALSE),
+(99, 'La tos seca o irritativa', TRUE),
+(99, 'El dolor de espalda', FALSE),
+(99, 'La picazón de ojos', FALSE),
+(100, 'Aliviar el estreñimiento', TRUE),
+(100, 'Detener la diarrea', FALSE),
+(100, 'Reducir la fiebre', FALSE);
+
+-- ============================================================
+-- Módulo Aprendizaje: párrafos del juego "Completar palabras"
+-- (las palabras a completar van entre [corchetes])
+-- ============================================================
+INSERT INTO parrafo_juego (titulo, contenido) VALUES
+('El paracetamol',
+ 'El [paracetamol] es un analgésico que alivia el [dolor] y reduce la [fiebre]. Se administra por vía [oral] y nunca debe excederse la [dosis] máxima indicada en el prospecto, porque puede dañar el hígado.'),
+('Los antibióticos',
+ 'Los [antibióticos] son medicamentos que combaten infecciones causadas por [bacterias]. Es muy importante completar todo el [tratamiento] indicado por el médico, porque abandonarlo antes favorece la [resistencia] bacteriana.'),
+('El asma',
+ 'El [asma] es una enfermedad crónica que afecta a las vías [respiratorias]. Durante una crisis se utiliza [salbutamol] inhalado, que actúa abriendo los [bronquios] y facilitando la respiración.'),
+('La hipertensión',
+ 'La [hipertensión] arterial es la elevación sostenida de la [presión] en las arterias. Suele no presentar [síntomas], por eso se le llama el enemigo silencioso. El [losartán] es uno de los medicamentos usados para controlarla.'),
+('La diabetes',
+ 'La [diabetes] tipo 2 se caracteriza por niveles altos de [glucosa] en la sangre. La [metformina] es el medicamento inicial más usado, siempre acompañado de una dieta saludable y [ejercicio] regular.'),
+('La gastritis',
+ 'La [gastritis] es la inflamación de la mucosa del [estómago]. El [omeprazol] ayuda a aliviar las molestias porque reduce la producción de [ácido] gástrico.'),
+('Las alergias',
+ 'Una [alergia] es una reacción exagerada del sistema [inmunitario] frente a sustancias normalmente inofensivas. Los [antihistamínicos], como la loratadina, alivian los [estornudos] y la picazón.'),
+('La gripe',
+ 'La [gripe] es una infección causada por un [virus], por lo que los antibióticos [no] son útiles contra ella. El tratamiento se basa en reposo, [hidratación] y medicamentos para aliviar los síntomas.'),
+('La anemia',
+ 'La [anemia] ferropénica se produce por falta de [hierro] y provoca cansancio y [palidez]. Se trata con suplementos y con alimentos ricos en este mineral, como las carnes rojas y las [menestras].'),
+('La automedicación',
+ 'La [automedicación] sin control profesional es riesgosa: puede enmascarar [enfermedades], provocar efectos [adversos] e interacciones peligrosas. Ante cualquier duda, consulta al médico o al [farmacéutico].');
