@@ -31,6 +31,7 @@ const categoriasFormulario = [
   { value: 'gastrointestinales', label: 'Gastrointestinales' },
   { value: 'endocrinos', label: 'Endocrinos' },
   { value: 'respiratorios', label: 'Respiratorios' },
+  { value: 'suplementos', label: 'Suplementos y vitaminas' },
 ];
 
 const inputClass =

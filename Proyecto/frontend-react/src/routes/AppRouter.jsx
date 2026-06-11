@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { MainLayout } from '../layouts/MainLayout.jsx';
 import { Login } from '../pages/Login.jsx';
+import { Registro } from '../pages/Registro.jsx';
 import { InicioPage } from '../pages/InicioPage.jsx';
 import { PanelResumen } from '../pages/PanelResumen.jsx';
 import { BusquedaMedicamentos } from '../pages/BusquedaMedicamentos.jsx';
@@ -10,6 +11,7 @@ import { MedicamentoForm } from '../pages/MedicamentoForm.jsx';
 import { Aprendizaje } from '../pages/Aprendizaje.jsx';
 import { AprendizajeQuiz } from '../pages/AprendizajeQuiz.jsx';
 import { AprendizajeCompletar } from '../pages/AprendizajeCompletar.jsx';
+import { AprendizajeCasos } from '../pages/AprendizajeCasos.jsx';
 import { PaginaNoEncontrada } from '../pages/PaginaNoEncontrada.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import { puedeAcceder } from '../utils/roles.js';
@@ -32,6 +34,7 @@ export function AppRouter() {
   return (
     <Routes>
       <Route path="login" element={<Login />} />
+      <Route path="registro" element={<Registro />} />
 
       <Route
         path="/"
@@ -77,6 +80,14 @@ export function AppRouter() {
           element={
             <RutaProtegida modulo="aprendizaje">
               <AprendizajeCompletar />
+            </RutaProtegida>
+          }
+        />
+        <Route
+          path="aprendizaje/casos"
+          element={
+            <RutaProtegida modulo="aprendizaje">
+              <AprendizajeCasos />
             </RutaProtegida>
           }
         />

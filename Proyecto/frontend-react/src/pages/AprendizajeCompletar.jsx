@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchParrafoAleatorio } from '../api/aprendizajeApi.js';
+import { fetchParrafoAleatorio, registrarActividad } from '../api/aprendizajeApi.js';
+import { useAuth } from '../context/AuthContext.jsx';
 
 // Compara sin distinguir mayúsculas ni tildes.
 function normalizar(texto) {
@@ -21,9 +22,11 @@ function parsearContenido(contenido) {
 }
 
 export function AprendizajeCompletar() {
+  const { user } = useAuth();
   const [parrafo, setParrafo] = useState(null);
   const [valores, setValores] = useState({});
   const [mostrarCorreccion, setMostrarCorreccion] = useState(false);
+  const [registrado, setRegistrado] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,6 +35,7 @@ export function AprendizajeCompletar() {
     setError(null);
     setValores({});
     setMostrarCorreccion(false);
+    setRegistrado(false);
     try {
       const data = await fetchParrafoAleatorio(excluirId);
       setParrafo(data);
@@ -58,6 +62,19 @@ export function AprendizajeCompletar() {
     const valor = valores[i] ?? '';
     return normalizar(valor) === normalizar(seg.texto) ? acc + 1 : acc;
   }, 0);
+
+  // Registra la partida una sola vez al completar todo el párrafo.
+  useEffect(() => {
+    if (!registrado && totalHuecos > 0 && completados === totalHuecos) {
+      setRegistrado(true);
+      registrarActividad({
+        userId: user?.id,
+        game: 'COMPLETAR',
+        total: totalHuecos,
+        correct: totalHuecos,
+      });
+    }
+  }, [completados, totalHuecos, registrado, user]);
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-8">

@@ -6,3 +6,14 @@ export async function loginUsuario(usuario, contrasenia) {
   });
   return data;
 }
+
+export async function registrarUsuario({ username, password, fullName, type, email }) {
+  const { data } = await apiClient.post('/api/usuarios/registro', {
+    username,
+    password,
+    fullName,
+    type,
+    email,
+  });
+  return data;
+}

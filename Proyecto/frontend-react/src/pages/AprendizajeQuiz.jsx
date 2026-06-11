@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { corregirQuiz, fetchQuizAleatorio } from '../api/aprendizajeApi.js';
+import { corregirQuiz, fetchQuizAleatorio, registrarActividad } from '../api/aprendizajeApi.js';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export function AprendizajeQuiz() {
+  const { user } = useAuth();
   const [questions, setQuestions] = useState([]);
   const [selection, setSelection] = useState({});
   const [result, setResult] = useState(null);
@@ -43,6 +45,12 @@ export function AprendizajeQuiz() {
     try {
       const data = await corregirQuiz(answers);
       setResult(data);
+      registrarActividad({
+        userId: user?.id,
+        game: 'QUIZ',
+        total: questions.length,
+        correct: data.correctas,
+      });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (e) {
       setError(e?.response?.data?.error ?? e.message);

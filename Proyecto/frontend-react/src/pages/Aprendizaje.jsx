@@ -20,13 +20,13 @@ const juegos = [
     color: 'from-green-500 to-emerald-600',
   },
   {
-    titulo: 'Próximamente',
+    titulo: 'Tutorial para ser médico',
     descripcion:
-      'Estamos preparando un nuevo minijuego para que sigas aprendiendo. ¡Muy pronto disponible!',
-    icono: '🎮',
-    link: null,
-    disponible: false,
-    color: 'from-slate-400 to-slate-500',
+      'Atiende pacientes virtuales: lee su historia clínica, elige el diagnóstico más probable y justifica tu decisión como un verdadero doctor.',
+    icono: '🩺',
+    link: '/aprendizaje/casos',
+    disponible: true,
+    color: 'from-rose-500 to-red-600',
   },
 ];
 

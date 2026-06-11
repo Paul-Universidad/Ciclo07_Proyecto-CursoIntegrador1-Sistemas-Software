@@ -15,6 +15,7 @@ const etiquetasCategoria = {
   gastrointestinales: 'Gastrointestinales',
   endocrinos: 'Endocrinos',
   respiratorios: 'Respiratorios',
+  suplementos: 'Suplementos y vitaminas',
 };
 
 export function MedicamentoDetalle() {

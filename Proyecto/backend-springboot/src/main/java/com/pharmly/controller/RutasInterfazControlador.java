@@ -11,6 +11,7 @@ public class RutasInterfazControlador {
 
     @GetMapping({
             "/login",
+            "/registro",
             "/inicio",
             "/panel",
             "/consulta",

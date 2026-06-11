@@ -60,6 +60,29 @@ export function Navbar() {
           <span>Sistema de consulta y repaso de medicamentos</span>
         </Link>
       </div>
+
+      {user && (
+        <div className="mx-4 mb-2 flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 p-3">
+          <span
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/90 text-lg font-extrabold text-teal-700 shadow"
+            aria-hidden="true"
+          >
+            {(user.fullName ?? '?').trim().charAt(0).toUpperCase()}
+          </span>
+          <div className="min-w-0">
+            <p className="m-0 truncate text-sm font-bold text-white" title={user.fullName}>
+              {user.fullName}
+            </p>
+            <span
+              className={`mt-1 inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-extrabold shadow-sm ${tipo.clase}`}
+            >
+              <span aria-hidden="true">{tipo.icono}</span>
+              {tipo.etiqueta}
+            </span>
+          </div>
+        </div>
+      )}
+
       <nav className="apf-sidebar-nav">
         {visibleLinks.map(({ to, label, end, pathPrefix, icono }) => (
           <NavLink
@@ -92,19 +115,6 @@ export function Navbar() {
         )}
       </nav>
       <div className="apf-sidebar-foot">
-        {user && (
-          <div className="mb-2">
-            <p className="m-0 text-sm font-semibold text-white">
-              {user.fullName}
-            </p>
-            <span
-              className={`mt-1.5 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-extrabold shadow-sm ${tipo.clase}`}
-            >
-              <span aria-hidden="true">{tipo.icono}</span>
-              {tipo.etiqueta}
-            </span>
-          </div>
-        )}
         <button
           type="button"
           onClick={onLogout}

@@ -20,4 +20,14 @@ public class UsuariosRepositorio implements UsuariosDao {
     public Optional<UsuarioEntidad> findByUsernameIgnoreCase(String username) {
         return usuariosJpaRepositorio.findByUsernameIgnoreCase(username);
     }
+
+    @Override
+    public boolean existsByUsernameIgnoreCase(String username) {
+        return usuariosJpaRepositorio.existsByUsernameIgnoreCase(username);
+    }
+
+    @Override
+    public UsuarioEntidad save(UsuarioEntidad usuario) {
+        return usuariosJpaRepositorio.save(usuario);
+    }
 }

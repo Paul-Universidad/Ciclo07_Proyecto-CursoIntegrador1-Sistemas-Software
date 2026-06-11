@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { loginUsuario } from '../api/usuariosApi.js';
 import { useAuth } from '../context/AuthContext.jsx';
 
@@ -98,6 +98,13 @@ export function Login() {
               {loading ? 'Ingresando…' : 'Iniciar sesión'}
             </button>
           </form>
+
+          <p className="mt-6 text-center text-sm text-slate-500">
+            ¿Aún no tienes una cuenta?{' '}
+            <Link to="/registro" className="font-semibold text-indigo-600 hover:text-indigo-700">
+              Crear cuenta
+            </Link>
+          </p>
         </div>
       </div>
     </main>
