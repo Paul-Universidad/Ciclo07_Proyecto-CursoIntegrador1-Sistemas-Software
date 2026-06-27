@@ -1,0 +1,731 @@
+/* Prototipo APF — interfaz clara, lenguaje accesible (Fig. 3–7) */
+:root {
+  --apf-bg: #e8f1f8;
+  --apf-surface: #ffffff;
+  --apf-text: #1a2b3c;
+  --apf-muted: #5a6f82;
+  --apf-primary: #0b6e8f;
+  --apf-primary-dark: #095a77;
+  --apf-accent: #12a37f;
+  --apf-border: #c5d7e3;
+  --apf-shadow: 0 8px 28px rgba(11, 110, 143, 0.12);
+  --apf-radius: 14px;
+  --apf-verde: #16a34a;
+  --apf-amarillo: #ca8a04;
+  --apf-rojo: #dc2626;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body.apf {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  background: var(--apf-bg);
+  color: var(--apf-text);
+  line-height: 1.5;
+}
+
+/* —— Sidebar izquierda (tema medicinal: verdes y teal) —— */
+.apf-sidebar {
+  width: 268px;
+  min-width: 268px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at 85% 12%, rgba(110, 231, 183, 0.22) 0%, transparent 38%),
+    radial-gradient(circle at 10% 85%, rgba(45, 212, 191, 0.18) 0%, transparent 42%),
+    linear-gradient(180deg, #064e3b 0%, #0f766e 48%, #115e59 100%);
+  color: #fff;
+  box-shadow: 4px 0 24px rgba(6, 78, 59, 0.35);
+  z-index: 2;
+}
+
+.apf-sidebar-head {
+  padding: 1.35rem 1.1rem 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.apf-brand {
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  line-height: 1.25;
+}
+
+.apf-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  margin-right: 0.55rem;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  vertical-align: middle;
+  background: linear-gradient(135deg, #34d399, #2dd4bf);
+  box-shadow: 0 4px 12px rgba(52, 211, 153, 0.4);
+}
+
+.apf-brand span:not(.apf-brand-logo) {
+  opacity: 0.85;
+  font-weight: 500;
+  font-size: 0.72rem;
+  display: block;
+  margin-top: 0.5rem;
+  line-height: 1.35;
+  color: #a7f3d0;
+}
+
+.apf-sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem 0.75rem;
+  overflow-y: auto;
+}
+
+.apf-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.apf-sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(3px);
+}
+
+.apf-sidebar-link.apf-nav-active {
+  background: #fff;
+  color: #0f766e;
+  font-weight: 800;
+  box-shadow: 0 6px 16px rgba(6, 78, 59, 0.35);
+}
+
+.apf-sidebar-link.apf-nav-active:hover {
+  transform: none;
+}
+
+.apf-sidebar-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  flex-shrink: 0;
+  border-radius: 9px;
+  font-size: 1.05rem;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.apf-sidebar-link.apf-nav-active .apf-sidebar-ico {
+  background: linear-gradient(135deg, #d1fae5, #ccfbf1);
+}
+
+.apf-sidebar-foot {
+  padding: 0.85rem 1rem 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.apf-sidebar-foot a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+}
+
+.apf-sidebar-foot a:hover {
+  text-decoration: underline;
+}
+
+/* Área de contenido a la derecha del sidebar */
+.apf-page {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--apf-bg);
+}
+
+.apf-page > main {
+  flex: 1;
+}
+
+@media (max-width: 720px) {
+  body.apf {
+    flex-direction: column;
+  }
+
+  .apf-sidebar {
+    width: 100%;
+    min-width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 16px rgba(9, 90, 119, 0.2);
+  }
+
+  .apf-sidebar-head {
+    flex: 1 1 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .apf-sidebar-nav {
+    flex: 1 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.65rem;
+    gap: 0.35rem;
+  }
+
+  .apf-sidebar-link {
+    flex: 1 1 auto;
+    min-width: calc(50% - 0.35rem);
+    justify-content: center;
+    font-size: 0.85rem;
+    padding: 0.55rem 0.5rem;
+  }
+
+  .apf-sidebar-ico {
+    display: none;
+  }
+
+  .apf-sidebar-link {
+    gap: 0;
+  }
+
+  .apf-sidebar-foot {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    flex: 1 1 100%;
+  }
+
+  .apf-page {
+    min-height: auto;
+  }
+}
+
+/* —— Contenedor —— */
+.apf-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.apf-shell-wide {
+  max-width: 1100px;
+}
+
+/* —— Fig. 3 Inicio —— */
+.apf-hero {
+  background: var(--apf-surface);
+  border-radius: var(--apf-radius);
+  padding: 2.25rem 1.75rem;
+  box-shadow: var(--apf-shadow);
+  text-align: center;
+  border: 1px solid var(--apf-border);
+}
+
+.apf-hero h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  color: var(--apf-primary-dark);
+  line-height: 1.25;
+}
+
+.apf-hero .apf-lead {
+  color: var(--apf-muted);
+  max-width: 36rem;
+  margin: 0 auto 1.5rem;
+  font-size: 1.05rem;
+}
+
+.apf-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.apf-btn {
+  display: inline-block;
+  padding: 0.65rem 1.35rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.apf-btn-primary {
+  background: var(--apf-accent);
+  color: #fff;
+}
+
+.apf-btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.apf-btn-secondary {
+  background: #fff;
+  color: var(--apf-primary);
+  border: 2px solid var(--apf-primary);
+}
+
+.apf-btn-secondary:hover {
+  background: rgba(11, 110, 143, 0.08);
+}
+
+.apf-hero-meta {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--apf-border);
+  font-size: 0.9rem;
+  color: var(--apf-muted);
+}
+
+/* —— Fig. 4 Dashboard —— */
+.apf-dash-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.5rem;
+  color: var(--apf-primary-dark);
+}
+
+.apf-dash-sub {
+  color: var(--apf-muted);
+  margin: 0 0 1.5rem;
+}
+
+.apf-dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.1rem;
+}
+
+.apf-dash-card {
+  background: var(--apf-surface);
+  border-radius: var(--apf-radius);
+  padding: 1.35rem 1.2rem;
+  border: 1px solid var(--apf-border);
+  box-shadow: var(--apf-shadow);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.apf-dash-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(11, 110, 143, 0.18);
+}
+
+.apf-dash-card-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.apf-dash-card h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+  color: var(--apf-primary-dark);
+}
+
+.apf-dash-card p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--apf-muted);
+  flex: 1;
+}
+
+.apf-dash-stats {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.apf-stat {
+  background: var(--apf-surface);
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--apf-border);
+  font-size: 0.9rem;
+}
+
+.apf-stat strong {
+  color: var(--apf-primary);
+}
+
+/* —— Fig. 5 Consulta —— */
+.apf-search-panel {
+  background: var(--apf-surface);
+  padding: 1.5rem;
+  border-radius: var(--apf-radius);
+  border: 1px solid var(--apf-border);
+  box-shadow: var(--apf-shadow);
+  margin-bottom: 1.5rem;
+}
+
+.apf-search-panel label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--apf-primary-dark);
+}
+
+.apf-search-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.apf-search-row input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--apf-border);
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.apf-search-row input:focus {
+  outline: none;
+  border-color: var(--apf-primary);
+}
+
+.apf-result-card {
+  background: var(--apf-surface);
+  border-radius: var(--apf-radius);
+  border: 1px solid var(--apf-border);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.apf-result-head {
+  padding: 1rem 1.15rem;
+  background: linear-gradient(90deg, rgba(11, 110, 143, 0.08), transparent);
+  border-bottom: 1px solid var(--apf-border);
+}
+
+.apf-result-head a {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--apf-primary-dark);
+  text-decoration: none;
+}
+
+.apf-result-head a:hover {
+  text-decoration: underline;
+}
+
+.apf-result-body {
+  padding: 1rem 1.15rem;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .apf-result-body {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.apf-info-block h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--apf-muted);
+}
+
+.apf-info-block p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.apf-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--apf-muted);
+  background: var(--apf-surface);
+  border-radius: var(--apf-radius);
+  border: 1px dashed var(--apf-border);
+}
+
+/* —— Fig. 6 Aprendizaje —— */
+.apf-quiz-card {
+  background: var(--apf-surface);
+  border-radius: var(--apf-radius);
+  padding: 1.35rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--apf-border);
+  box-shadow: var(--apf-shadow);
+}
+
+.apf-quiz-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--apf-muted);
+}
+
+.apf-quiz-prompt {
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: var(--apf-text);
+}
+
+.apf-option {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  margin: 0.45rem 0;
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 8px;
+}
+
+.apf-option:hover {
+  background: rgba(11, 110, 143, 0.06);
+}
+
+.apf-feedback-ok {
+  color: var(--apf-verde);
+  font-weight: 600;
+  margin: 0.75rem 0 0;
+}
+
+.apf-feedback-bad {
+  color: var(--apf-rojo);
+  font-weight: 600;
+  margin: 0.75rem 0 0;
+}
+
+/* —— Fig. 7 Consejos / triage —— */
+.apf-triage {
+  border-radius: var(--apf-radius);
+  padding: 1.15rem 1.25rem;
+  margin-top: 1rem;
+  border: 2px solid var(--apf-border);
+  background: var(--apf-surface);
+}
+
+.apf-triage--verde {
+  border-color: var(--apf-verde);
+  background: linear-gradient(135deg, #ecfdf5, #fff);
+}
+
+.apf-triage--amarillo {
+  border-color: var(--apf-amarillo);
+  background: linear-gradient(135deg, #fffbeb, #fff);
+}
+
+.apf-triage--rojo {
+  border-color: var(--apf-rojo);
+  background: linear-gradient(135deg, #fef2f2, #fff);
+}
+
+.apf-triage-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+
+.apf-triage--verde .apf-triage-label {
+  color: var(--apf-verde);
+}
+
+.apf-triage--amarillo .apf-triage-label {
+  color: var(--apf-amarillo);
+}
+
+.apf-triage--rojo .apf-triage-label {
+  color: var(--apf-rojo);
+}
+
+.apf-form label {
+  display: block;
+  font-weight: 600;
+  margin: 0.85rem 0 0.35rem;
+  color: var(--apf-text);
+}
+
+.apf-form input[type="text"] {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 2px solid var(--apf-border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.apf-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--apf-primary);
+}
+
+.apf-form textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--apf-border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.apf-form textarea:focus {
+  outline: none;
+  border-color: var(--apf-primary);
+}
+
+.apf-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  align-items: center;
+}
+
+.apf-catalog-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--apf-border);
+}
+
+.apf-catalog-row:last-child {
+  border-bottom: none;
+}
+
+.apf-catalog-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.apf-catalog-row-actions form {
+  margin: 0;
+}
+
+.apf-error {
+  color: var(--apf-rojo);
+  font-weight: 600;
+}
+
+/* —— Detalle medicamento —— */
+.apf-back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--apf-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.apf-back:hover {
+  text-decoration: underline;
+}
+
+.apf-detail-hero {
+  background: var(--apf-surface);
+  border-radius: var(--apf-radius);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--apf-border);
+  box-shadow: var(--apf-shadow);
+}
+
+.apf-detail-hero h1 {
+  margin: 0 0 0.25rem;
+  color: var(--apf-primary-dark);
+}
+
+.apf-detail-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .apf-detail-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* —— Footer —— */
+.apf-footer {
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  font-size: 0.82rem;
+  color: var(--apf-muted);
+  border-top: 1px solid var(--apf-border);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.apf-page-title {
+  margin: 0 0 1.25rem;
+  font-size: 1.35rem;
+  color: var(--apf-primary-dark);
+}
+
+.muted {
+  color: var(--apf-muted);
+}
+
+.apf-list-plain {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.apf-list-plain li {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--apf-border);
+}
+
+.apf-list-plain a {
+  font-weight: 600;
+  color: var(--apf-primary-dark);
+  text-decoration: none;
+}
+
+.apf-list-plain a:hover {
+  text-decoration: underline;
+}

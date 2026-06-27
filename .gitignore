@@ -1,0 +1,11 @@
+**/target/
+.idea/
+*.iml
+_ref_dwi/
+
+# Cliente React (cuando exista)
+Proyecto/frontend-react/node_modules/
+Proyecto/frontend-react/dist/
+
+# Claves y configuración local del backend
+Proyecto/backend-springboot/src/main/resources/application-local.properties
