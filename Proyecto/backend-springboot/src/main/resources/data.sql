@@ -1371,12 +1371,12 @@ INSERT INTO opcion_caso_clinico (caso_id, tipo, texto, correcta) VALUES
 -- usuario 1 = admin, usuario 2 = estudiante
 -- ============================================================
 INSERT INTO actividad_aprendizaje (usuario_id, juego, total, aciertos, fecha) VALUES
-(2, 'QUIZ', 10, 5, DATEADD('DAY', -6, CURRENT_TIMESTAMP)),
-(2, 'COMPLETAR', 4, 4, DATEADD('DAY', -5, CURRENT_TIMESTAMP)),
-(2, 'QUIZ', 10, 7, DATEADD('DAY', -4, CURRENT_TIMESTAMP)),
-(2, 'CASOS', 2, 1, DATEADD('DAY', -3, CURRENT_TIMESTAMP)),
-(2, 'COMPLETAR', 5, 5, DATEADD('DAY', -2, CURRENT_TIMESTAMP)),
-(2, 'QUIZ', 10, 8, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+(2, 'QUIZ', 10, 5, CURRENT_TIMESTAMP - INTERVAL '6 days'),
+(2, 'COMPLETAR', 4, 4, CURRENT_TIMESTAMP - INTERVAL '5 days'),
+(2, 'QUIZ', 10, 7, CURRENT_TIMESTAMP - INTERVAL '4 days'),
+(2, 'CASOS', 2, 1, CURRENT_TIMESTAMP - INTERVAL '3 days'),
+(2, 'COMPLETAR', 5, 5, CURRENT_TIMESTAMP - INTERVAL '2 days'),
+(2, 'QUIZ', 10, 8, CURRENT_TIMESTAMP - INTERVAL '1 day'),
 (2, 'CASOS', 2, 2, CURRENT_TIMESTAMP),
-(1, 'QUIZ', 10, 9, DATEADD('DAY', -1, CURRENT_TIMESTAMP)),
+(1, 'QUIZ', 10, 9, CURRENT_TIMESTAMP - INTERVAL '1 day'),
 (1, 'CASOS', 2, 2, CURRENT_TIMESTAMP);
