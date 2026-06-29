@@ -4,7 +4,7 @@
     {
       "src": "Proyecto/frontend-react/package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "config": { "distDir": "../backend-springboot/src/main/resources/static" }
     }
   ]
 }
