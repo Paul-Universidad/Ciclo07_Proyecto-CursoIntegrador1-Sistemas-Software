@@ -35,14 +35,14 @@ public class ConfiguracionWeb implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
+        registry.addMapping("/**") // Mejor usar /** para que cubra todo, o /api/** si eres estricto
                 .allowedOrigins(
-                        "http://localhost:8080",
-                        "http://127.0.0.1:8080",
-                        "http://localhost:5173",
-                        "http://127.0.0.1:5173",
-                        "null")
+                        "https://ciclo07-proyecto-curso-integrador1-sistemas-software-emrco09n2.vercel.app", // <-- Tu Frontend en Producción
+                        "http://localhost:5173", // Tu Frontend en Local
+                        "http://127.0.0.1:5173"
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .allowCredentials(true); // Muy importante si usas tokens, cookies o sesiones
     }
 }
