@@ -33,41 +33,60 @@ body.apf {
   line-height: 1.5;
 }
 
-/* —— Sidebar izquierda (prototipo tipo escritorio) —— */
+/* —— Sidebar izquierda (tema medicinal: verdes y teal) —— */
 .apf-sidebar {
   width: 268px;
   min-width: 268px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, #0c4a5e 0%, var(--apf-primary) 45%, #095a77 100%);
+  background:
+    radial-gradient(circle at 85% 12%, rgba(110, 231, 183, 0.22) 0%, transparent 38%),
+    radial-gradient(circle at 10% 85%, rgba(45, 212, 191, 0.18) 0%, transparent 42%),
+    linear-gradient(180deg, #064e3b 0%, #0f766e 48%, #115e59 100%);
   color: #fff;
-  box-shadow: 4px 0 24px rgba(9, 90, 119, 0.25);
+  box-shadow: 4px 0 24px rgba(6, 78, 59, 0.35);
   z-index: 2;
 }
 
 .apf-sidebar-head {
   padding: 1.35rem 1.1rem 1.1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .apf-brand {
-  font-weight: 700;
-  font-size: 1.2rem;
-  letter-spacing: 0.02em;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
   text-decoration: none;
   color: #fff;
   display: block;
   line-height: 1.25;
 }
 
-.apf-brand span {
-  opacity: 0.88;
+.apf-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  margin-right: 0.55rem;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  vertical-align: middle;
+  background: linear-gradient(135deg, #34d399, #2dd4bf);
+  box-shadow: 0 4px 12px rgba(52, 211, 153, 0.4);
+}
+
+.apf-brand span:not(.apf-brand-logo) {
+  opacity: 0.85;
   font-weight: 500;
   font-size: 0.72rem;
   display: block;
-  margin-top: 0.45rem;
+  margin-top: 0.5rem;
   line-height: 1.35;
+  color: #a7f3d0;
 }
 
 .apf-sidebar-nav {
@@ -82,43 +101,54 @@ body.apf {
 .apf-sidebar-link {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  color: rgba(255, 255, 255, 0.94);
+  gap: 0.7rem;
+  color: rgba(255, 255, 255, 0.95);
   text-decoration: none;
   padding: 0.7rem 0.85rem;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 0.95rem;
-  font-weight: 500;
-  transition: background 0.15s ease;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
 }
 
 .apf-sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(3px);
 }
 
 .apf-sidebar-link.apf-nav-active {
-  background: rgba(255, 255, 255, 0.22);
-  font-weight: 700;
-  box-shadow: inset 3px 0 0 var(--apf-accent);
+  background: #fff;
+  color: #0f766e;
+  font-weight: 800;
+  box-shadow: 0 6px 16px rgba(6, 78, 59, 0.35);
+}
+
+.apf-sidebar-link.apf-nav-active:hover {
+  transform: none;
 }
 
 .apf-sidebar-ico {
-  width: 0.45rem;
-  height: 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
   flex-shrink: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+  border-radius: 9px;
+  font-size: 1.05rem;
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .apf-sidebar-link.apf-nav-active .apf-sidebar-ico {
-  background: var(--apf-accent);
-  box-shadow: 0 0 0 2px rgba(18, 163, 127, 0.35);
+  background: linear-gradient(135deg, #d1fae5, #ccfbf1);
 }
 
 .apf-sidebar-foot {
   padding: 0.85rem 1rem 1.1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   gap: 0.35rem;

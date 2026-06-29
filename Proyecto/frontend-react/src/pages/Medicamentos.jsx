@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchMedications } from "../api/medicamentosApi.js";
+import { useAuth } from "../context/AuthContext.jsx";
+import { esAdmin } from "../utils/roles.js";
 
 export function Medicamentos() {
+  const { user } = useAuth();
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [error, setError] = useState(null);
@@ -17,6 +20,11 @@ export function Medicamentos() {
     { value: "cardiovasculares", label: "Cardiovasculares" },
     { value: "neurologicos", label: "Neurológicos" },
     { value: "dermatologicos", label: "Dermatológicos" },
+    { value: "antialergicos", label: "Antialérgicos" },
+    { value: "gastrointestinales", label: "Gastrointestinales" },
+    { value: "endocrinos", label: "Endocrinos" },
+    { value: "respiratorios", label: "Respiratorios" },
+    { value: "suplementos", label: "Suplementos y vitaminas" },
   ];
 
   useEffect(() => {
@@ -61,13 +69,24 @@ export function Medicamentos() {
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 mb-2">
-          Catálogo de medicamentos
-        </h1>
-        <p className="text-slate-600">
-          Explora nuestra base de datos organizada por categorías
-        </p>
+      <div className="mb-8 flex flex-col gap-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-8 text-white shadow-lg sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-extrabold mb-2">
+            💊 Diccionario de medicamentos
+          </h1>
+          <p className="text-blue-100">
+            Explora nuestra base de datos organizada por categorías
+          </p>
+        </div>
+
+        {esAdmin(user?.type) && (
+          <Link
+            to="/medicamentos/nuevo"
+            className="w-fit rounded-xl bg-white px-5 py-2.5 font-semibold text-indigo-600 shadow-sm transition hover:bg-blue-50"
+          >
+            + Nuevo medicamento
+          </Link>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -147,6 +166,27 @@ export function Medicamentos() {
                       {m.presentation}
                     </p>
                   </div>
+                )}
+
+                {m.administrationRoute && (
+                  <div>
+                    <p className="text-xs text-slate-500">Vía de administración</p>
+                    <p className="text-sm font-medium text-slate-800">
+                      {m.administrationRoute}
+                    </p>
+                  </div>
+                )}
+
+                {m.requiresPrescription != null && (
+                  <p
+                    className={`text-xs font-semibold ${
+                      m.requiresPrescription ? "text-amber-600" : "text-green-600"
+                    }`}
+                  >
+                    {m.requiresPrescription
+                      ? "⚠ Requiere receta médica"
+                      : "✓ Venta libre"}
+                  </p>
                 )}
               </div>
             </div>

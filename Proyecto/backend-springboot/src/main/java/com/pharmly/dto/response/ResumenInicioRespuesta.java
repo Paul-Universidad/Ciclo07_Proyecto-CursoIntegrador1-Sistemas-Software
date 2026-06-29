@@ -8,12 +8,17 @@ public class ResumenInicioRespuesta {
     private final String title;
     private final int medicationCount;
     private final int quizQuestionCount;
+    private final int ailmentCount;
+    private final int clinicalCaseCount;
     private final String hint;
 
-    public ResumenInicioRespuesta(String title, int medicationCount, int quizQuestionCount, String hint) {
+    public ResumenInicioRespuesta(String title, int medicationCount, int quizQuestionCount,
+            int ailmentCount, int clinicalCaseCount, String hint) {
         this.title = title;
         this.medicationCount = medicationCount;
         this.quizQuestionCount = quizQuestionCount;
+        this.ailmentCount = ailmentCount;
+        this.clinicalCaseCount = clinicalCaseCount;
         this.hint = hint;
     }
 
@@ -27,6 +32,14 @@ public class ResumenInicioRespuesta {
 
     public int getQuizQuestionCount() {
         return quizQuestionCount;
+    }
+
+    public int getAilmentCount() {
+        return ailmentCount;
+    }
+
+    public int getClinicalCaseCount() {
+        return clinicalCaseCount;
     }
 
     public String getHint() {

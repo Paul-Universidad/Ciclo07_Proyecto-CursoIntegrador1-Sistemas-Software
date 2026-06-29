@@ -38,6 +38,18 @@ public class MedicamentoEntidad {
     @Column(name = "efectos_secundarios", length = 4000)
     private String sideEffects;
 
+    @Column(name = "contraindicaciones", length = 4000)
+    private String contraindications;
+
+    @Column(name = "interacciones", length = 4000)
+    private String interactions;
+
+    @Column(name = "via_administracion")
+    private String administrationRoute;
+
+    @Column(name = "requiere_receta")
+    private Boolean requiresPrescription;
+
     @Column(name = "categoria", length = 80)
     private String category;
 
@@ -112,6 +124,38 @@ public class MedicamentoEntidad {
 
     public void setSideEffects(String sideEffects) {
         this.sideEffects = sideEffects;
+    }
+
+    public String getContraindications() {
+        return contraindications;
+    }
+
+    public void setContraindications(String contraindications) {
+        this.contraindications = contraindications;
+    }
+
+    public String getInteractions() {
+        return interactions;
+    }
+
+    public void setInteractions(String interactions) {
+        this.interactions = interactions;
+    }
+
+    public String getAdministrationRoute() {
+        return administrationRoute;
+    }
+
+    public void setAdministrationRoute(String administrationRoute) {
+        this.administrationRoute = administrationRoute;
+    }
+
+    public Boolean getRequiresPrescription() {
+        return requiresPrescription;
+    }
+
+    public void setRequiresPrescription(Boolean requiresPrescription) {
+        this.requiresPrescription = requiresPrescription;
     }
 
     public String getCategory() {

@@ -86,6 +86,10 @@ public class MedicamentosServicioImpl implements MedicamentosServicio {
         e.setPrecautions(trimToNull(f.getPrecautions()));
         e.setDoseGuidance(trimToNull(f.getDoseGuidance()));
         e.setSideEffects(trimToNull(f.getSideEffects()));
+        e.setContraindications(trimToNull(f.getContraindications()));
+        e.setInteractions(trimToNull(f.getInteractions()));
+        e.setAdministrationRoute(trimToNull(f.getAdministrationRoute()));
+        e.setRequiresPrescription(f.getRequiresPrescription() != null && f.getRequiresPrescription());
         e.setCategory(trimToNull(f.getCategory()));
         e.setPresentation(trimToNull(f.getPresentation()));
         e.setPrice(parsePrice(f.getPrice()));
@@ -124,6 +128,10 @@ public class MedicamentosServicioImpl implements MedicamentosServicio {
                 e.getPrecautions(),
                 e.getDoseGuidance(),
                 e.getSideEffects(),
+                e.getContraindications(),
+                e.getInteractions(),
+                e.getAdministrationRoute(),
+                e.getRequiresPrescription(),
                 e.getCategory(),
                 e.getPresentation(),
                 e.getPrice()
