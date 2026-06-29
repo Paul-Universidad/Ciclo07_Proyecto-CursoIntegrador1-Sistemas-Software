@@ -22,7 +22,6 @@ INSERT INTO categoria_medicamento (clave, nombre) VALUES
 ('endocrinos', 'Endocrinos'),
 ('respiratorios', 'Respiratorios'),
 ('suplementos', 'Suplementos y vitaminas');
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- ===== Categorías de dolencias =====
 INSERT INTO categoria_dolencia (id, nombre) VALUES
@@ -34,7 +33,6 @@ INSERT INTO categoria_dolencia (id, nombre) VALUES
 (6, 'Alérgicas y dermatológicas'),
 (7, 'Osteomusculares'),
 (8, 'Otras');
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- ===== Dolencias (significado, síntomas y consejos para la búsqueda) =====
 INSERT INTO dolencia (nombre, categoria_id, descripcion, sintomas, consejos) VALUES
@@ -118,7 +116,6 @@ INSERT INTO dolencia (nombre, categoria_id, descripcion, sintomas, consejos) VAL
  'Dificultad o baja frecuencia para evacuar el intestino.',
  'Deposiciones duras, esfuerzo al evacuar y sensación de evacuación incompleta.',
  'Aumenta fibra (frutas, verduras, avena), toma más agua y haz ejercicio. Los laxantes solo de forma ocasional y según indicación.');
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- ===== Medicamentos (ficha detallada) =====
 INSERT INTO medicamento (
@@ -224,7 +221,6 @@ INSERT INTO medicamento (
  'Úlcera activa, trastornos de coagulación, menores de 16 años con cuadros virales.',
  'Anticoagulantes, otros AINE y corticoides aumentan el riesgo de sangrado digestivo.',
  'Oral', FALSE, 'analgesicos', 'Comprimidos 500 mg', 9.80);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO medicamento (
     nombre, nombre_generico, descripcion, uso_comun, precauciones, orientacion_dosis, efectos_secundarios,
@@ -399,7 +395,6 @@ INSERT INTO medicamento (
  'Antecedentes de cálculos renales por oxalato (dosis altas).',
  'Mejora la absorción del hierro; pocas interacciones relevantes.',
  'Oral', FALSE, 'suplementos', 'Tabletas masticables 500 mg', 6.20);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- ===== Más medicamentos (mismas categorías) =====
 INSERT INTO medicamento (
@@ -796,7 +791,6 @@ INSERT INTO medicamento (
  'Alergia al pescado o mariscos.',
  'Potencia levemente a los anticoagulantes en dosis altas.',
  'Oral', FALSE, 'suplementos', 'Cápsulas 1000 mg', 15.50);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- ============================================================
 -- Módulo Aprendizaje: 100 preguntas de quiz (medicina, dolencias
@@ -903,7 +897,6 @@ INSERT INTO pregunta_aprendizaje (id, enunciado, explicacion) VALUES
 (98, '¿Qué profesional está especializado en dispensar medicamentos y orientar sobre su uso?', 'El químico farmacéutico es el profesional que dispensa y orienta sobre los medicamentos.'),
 (99, '¿Qué síntoma alivian los antitusivos?', 'Los antitusivos se usan para calmar la tos seca o irritativa.'),
 (100, '¿Para qué se usan los laxantes?', 'Los laxantes ayudan a aliviar el estreñimiento facilitando la evacuación intestinal.');
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- Opciones (3 por pregunta; la posición de la correcta varía)
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
@@ -922,7 +915,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (5, 'Un antihistamínico', FALSE),
 (5, 'Un antibiótico', TRUE),
 (5, 'Un antihipertensivo', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (6, 'Si es alérgico a las penicilinas', TRUE),
@@ -940,7 +932,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (10, 'Aumentar el ácido del estómago', FALSE),
 (10, 'Reducir la producción de ácido gástrico', TRUE),
 (10, 'Estimular el apetito', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (11, 'La insulina inhalada', FALSE),
@@ -958,7 +949,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (15, 'Controlar la presión arterial', TRUE),
 (15, 'Tratar infecciones por hongos', FALSE),
 (15, 'Aliviar la picazón de la piel', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (16, 'Reducir el colesterol', TRUE),
@@ -976,7 +966,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (20, 'Las benzodiacepinas (ansiolíticos)', TRUE),
 (20, 'Los antibióticos betalactámicos', FALSE),
 (20, 'Las estatinas', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (21, 'Un antimicótico', FALSE),
@@ -994,7 +983,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (25, 'Para reducir el ácido del estómago', TRUE),
 (25, 'Para dilatar los bronquios', FALSE),
 (25, 'Para conciliar el sueño', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (26, 'Reponer agua y electrolitos en diarreas', TRUE),
@@ -1012,7 +1000,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (30, 'Para aliviar dolor y fiebre', TRUE),
 (30, 'Para tratar hongos en la piel', FALSE),
 (30, 'Para reducir el colesterol', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (31, 'Un antihipertensivo (IECA)', TRUE),
@@ -1030,7 +1017,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (35, 'Tratar infecciones por virus del herpes', TRUE),
 (35, 'Tratar infecciones bacterianas urinarias', FALSE),
 (35, 'Reducir la fiebre del dengue', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (36, 'Aliviar inflamación y picazón en la piel', TRUE),
@@ -1048,7 +1034,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (40, 'Vía inhalatoria', TRUE),
 (40, 'Vía intramuscular', FALSE),
 (40, 'Vía tópica (crema)', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (41, 'Un virus (influenza)', TRUE),
@@ -1066,7 +1051,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (45, 'La elevación sostenida de la presión arterial', TRUE),
 (45, 'El aumento del azúcar en sangre', FALSE),
 (45, 'La disminución de glóbulos rojos', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (46, 'Porque generalmente no produce síntomas', TRUE),
@@ -1084,7 +1068,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (50, 'Una reacción exagerada del sistema inmunitario', TRUE),
 (50, 'Una infección causada por bacterias', FALSE),
 (50, 'Una enfermedad hereditaria de la piel', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (51, 'A partir de 38 °C aproximadamente', TRUE),
@@ -1102,7 +1085,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (55, 'La inflamación de la conjuntiva del ojo', TRUE),
 (55, 'Una infección de la garganta', FALSE),
 (55, 'Una alergia alimentaria', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (56, 'La garganta (faringe)', TRUE),
@@ -1120,7 +1102,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (60, 'La dificultad para evacuar el intestino', TRUE),
 (60, 'El aumento de deposiciones líquidas', FALSE),
 (60, 'El dolor al orinar', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (61, 'La deshidratación', TRUE),
@@ -1155,7 +1136,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (70, 'El ácido del estómago sube hacia el esófago', TRUE),
 (70, 'El intestino absorbe demasiada agua', FALSE),
 (70, 'La vesícula produce más bilis', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (71, 'Un medicamento que alivia el dolor', TRUE),
@@ -1173,7 +1153,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (75, 'Alivian síntomas de alergia bloqueando la histamina', TRUE),
 (75, 'Curan las infecciones virales', FALSE),
 (75, 'Fortalecen los huesos', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (76, 'El que tiene el mismo principio activo que el de marca', TRUE),
@@ -1191,7 +1170,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (80, 'Una situación en la que el medicamento no debe usarse', TRUE),
 (80, 'Una indicación de uso frecuente', FALSE),
 (80, 'Un efecto positivo adicional', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (81, 'Un efecto no deseado que acompaña al efecto buscado', TRUE),
@@ -1209,7 +1187,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (85, 'Hasta cuándo se garantiza su eficacia y seguridad', TRUE),
 (85, 'La fecha en que fue fabricado', FALSE),
 (85, 'El día recomendado para empezar a tomarlo', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (86, 'Un lugar fresco, seco y fuera del alcance de los niños', TRUE),
@@ -1227,7 +1204,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (90, 'Una forma farmacéutica líquida y azucarada', TRUE),
 (90, 'Una pastilla efervescente', FALSE),
 (90, 'Una inyección de acción lenta', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (91, 'El comprimido es polvo compactado; la cápsula tiene cubierta con el fármaco dentro', TRUE),
@@ -1245,7 +1221,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (95, 'Tomar una cantidad mayor a la recomendada, con riesgo de toxicidad', TRUE),
 (95, 'Olvidar una dosis del tratamiento', FALSE),
 (95, 'Cambiar de marca de medicamento', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (96, 'Puede potenciar efectos sedantes o aumentar la toxicidad', TRUE),
@@ -1263,7 +1238,6 @@ INSERT INTO opcion_aprendizaje (pregunta_id, texto_opcion, correcta) VALUES
 (100, 'Aliviar el estreñimiento', TRUE),
 (100, 'Detener la diarrea', FALSE),
 (100, 'Reducir la fiebre', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- ============================================================
 -- Módulo Aprendizaje: párrafos del juego "Completar palabras"
@@ -1290,7 +1264,6 @@ INSERT INTO parrafo_juego (titulo, contenido) VALUES
  'La [anemia] ferropénica se produce por falta de [hierro] y provoca cansancio y [palidez]. Se trata con suplementos y con alimentos ricos en este mineral, como las carnes rojas y las [menestras].'),
 ('La automedicación',
  'La [automedicación] sin control profesional es riesgosa: puede enmascarar [enfermedades], provocar efectos [adversos] e interacciones peligrosas. Ante cualquier duda, consulta al médico o al [farmacéutico].');
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- ============================================================
 -- Módulo Aprendizaje: "Tutorial para ser médico" (casos clínicos)
@@ -1327,7 +1300,6 @@ INSERT INTO caso_clinico (id, titulo, perfil, explicacion) VALUES
 (10, 'Las rodillas de don Alberto',
  'Paciente varón de 60 años, tipo de sangre O+. Tiene dolor en ambas rodillas con rigidez al levantarse por las mañanas que mejora al moverse; a veces las nota hinchadas.',
  'Dolor articular con rigidez matutina e hinchazón en una persona mayor orienta a artritis: inflamación de las articulaciones.');
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- Opciones de diagnóstico (3 por caso)
 INSERT INTO opcion_caso_clinico (caso_id, tipo, texto, correcta) VALUES
@@ -1361,7 +1333,6 @@ INSERT INTO opcion_caso_clinico (caso_id, tipo, texto, correcta) VALUES
 (10, 'DIAGNOSTICO', 'Artritis', TRUE),
 (10, 'DIAGNOSTICO', 'Lumbalgia', FALSE),
 (10, 'DIAGNOSTICO', 'Osteoporosis', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- Opciones de justificación (3 por caso)
 INSERT INTO opcion_caso_clinico (caso_id, tipo, texto, correcta) VALUES
@@ -1395,7 +1366,6 @@ INSERT INTO opcion_caso_clinico (caso_id, tipo, texto, correcta) VALUES
 (10, 'JUSTIFICACION', 'Tiene dolor e hinchazón articular con rigidez matutina que mejora al moverse', TRUE),
 (10, 'JUSTIFICACION', 'El dolor es lumbar y aumenta con malas posturas', FALSE),
 (10, 'JUSTIFICACION', 'Sufrió una fractura espontánea por huesos frágiles', FALSE);
-ON CONFLICT (nombre_usuario) DO NOTHING;
 
 -- ============================================================
 -- Actividad de ejemplo en los minijuegos (para el Panel)
@@ -1411,4 +1381,3 @@ INSERT INTO actividad_aprendizaje (usuario_id, juego, total, aciertos, fecha) VA
 (2, 'CASOS', 2, 2, CURRENT_TIMESTAMP),
 (1, 'QUIZ', 10, 9, CURRENT_TIMESTAMP - INTERVAL '1 day'),
 (1, 'CASOS', 2, 2, CURRENT_TIMESTAMP);
-ON CONFLICT (nombre_usuario) DO NOTHING;
