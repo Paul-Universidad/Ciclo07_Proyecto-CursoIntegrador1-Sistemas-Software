@@ -3,8 +3,10 @@ package com.pharmly.config;
 import java.util.Arrays;
 import java.util.Locale;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -36,28 +38,32 @@ public class ConfiguracionWeb implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-    // Reemplazamos addCorsMappings por el filtro global de CORS para evitar bloqueos en Producción
+    // Registramos el filtro con la PRIORIDAD MÁS ALTA
     @Bean
-    public CorsFilter corsFilter() {
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         
-        // Es vital que este en true si usas credenciales/sesiones
         config.setAllowCredentials(true); 
         
-        // Orígenes permitidos
-        config.setAllowedOrigins(Arrays.asList(
-                "https://ciclo07-proyecto-curso-integrador1.vercel.app", // Frontend en Producción
-                "http://localhost:5173", // Frontend en Local
+        // Usamos OriginPatterns para permitir cualquier subdominio de Vercel por seguridad
+        config.setAllowedOriginPatterns(Arrays.asList(
+                "https://*.vercel.app",
+                "https://ciclo07-proyecto-curso-integrador1.vercel.app", 
+                "http://localhost:5173", 
                 "http://127.0.0.1:5173"
         ));
         
-        // Headers y métodos permitidos explícitamente
-        config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
+        // Permitir TODOS los headers evita bloqueos por headers preflight imprevistos
+        config.setAllowedHeaders(Arrays.asList("*")); 
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config); // Aplica a todas las rutas
+        source.registerCorsConfiguration("/**", config); 
         
-        return new CorsFilter(source);
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
+        // Esto asegura que el CORS se evalúe antes que cualquier otra regla de seguridad o ruteo
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE); 
+        
+        return bean;
     }
 }
