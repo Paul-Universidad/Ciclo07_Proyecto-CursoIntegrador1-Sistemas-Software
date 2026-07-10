@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: pharmly-backend
+    runtime: docker
+    rootDir: Proyecto/backend-springboot
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/estado
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false

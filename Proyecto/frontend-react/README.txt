@@ -8,7 +8,14 @@ Desarrollo (API en 8080 + hot reload en 5173):
 
 Producción integrada en Spring (genera estáticos dentro del backend):
   npm install
-  npm run build
+  npm run build:backend
   Los archivos quedan en ../backend-springboot/src/main/resources/static/
+
+Despliegue en Vercel (frontend separado del backend):
+  Root Directory en Vercel: Proyecto/frontend-react
+  Build: npm run build
+  Output: dist
+  Variable BACKEND_URL = URL del backend (Render, Railway, etc.)
+  El archivo api/[...path].js reenvía /api al backend.
 
 Requisitos: Node.js 18+ (npm incluido).

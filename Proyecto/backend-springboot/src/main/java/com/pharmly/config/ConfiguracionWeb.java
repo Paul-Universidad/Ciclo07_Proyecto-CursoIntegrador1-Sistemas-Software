@@ -1,7 +1,12 @@
 package com.pharmly.config;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -13,6 +18,9 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
 public class ConfiguracionWeb implements WebMvcConfigurer {
+
+    @Value("${app.cors.allowed-origins:}")
+    private String allowedOrigins;
 
     @Bean
     public LocaleResolver localeResolver() {
@@ -35,13 +43,21 @@ public class ConfiguracionWeb implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        List<String> patterns = new ArrayList<>(List.of(
+                "http://localhost:*",
+                "http://127.0.0.1:*",
+                "https://*.vercel.app"));
+
+        if (allowedOrigins != null && !allowedOrigins.isBlank()) {
+            patterns.addAll(
+                    Arrays.stream(allowedOrigins.split(","))
+                            .map(String::trim)
+                            .filter(origin -> !origin.isEmpty())
+                            .collect(Collectors.toList()));
+        }
+
         registry.addMapping("/api/**")
-                .allowedOrigins(
-                        "http://localhost:8080",
-                        "http://127.0.0.1:8080",
-                        "http://localhost:5173",
-                        "http://127.0.0.1:5173",
-                        "null")
+                .allowedOriginPatterns(patterns.toArray(String[]::new))
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
     }

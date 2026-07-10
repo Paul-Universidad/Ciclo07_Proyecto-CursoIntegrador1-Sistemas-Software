@@ -6,7 +6,7 @@ const AuthContext = createContext(null);
 
 function readStoredUser() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = sessionStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -20,11 +20,11 @@ export function AuthProvider({ children }) {
     () => ({
       user,
       login(userData) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
         setUser(userData);
       },
       logout() {
-        localStorage.removeItem(STORAGE_KEY);
+        sessionStorage.removeItem(STORAGE_KEY);
         setUser(null);
       },
     }),

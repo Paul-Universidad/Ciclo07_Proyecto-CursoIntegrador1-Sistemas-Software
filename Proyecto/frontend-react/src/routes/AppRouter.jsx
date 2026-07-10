@@ -30,6 +30,11 @@ function RutaProtegida({ modulo, children }) {
   return children;
 }
 
+function RutaInicio() {
+  const { user } = useAuth();
+  return <Navigate to={user ? '/inicio' : '/login'} replace />;
+}
+
 export function AppRouter() {
   return (
     <Routes>
@@ -44,7 +49,7 @@ export function AppRouter() {
           </RutaProtegida>
         }
       >
-        <Route index element={<Navigate to="/inicio" replace />} />
+        <Route index element={<RutaInicio />} />
         <Route path="inicio" element={<InicioPage />} />
         <Route
           path="panel"

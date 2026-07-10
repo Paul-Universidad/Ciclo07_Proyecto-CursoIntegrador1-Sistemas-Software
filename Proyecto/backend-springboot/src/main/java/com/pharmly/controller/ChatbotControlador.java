@@ -31,6 +31,12 @@ public class ChatbotControlador {
             return ResponseEntity.badRequest().body(Map.of("error", "El mensaje no puede estar vacío"));
         }
 
+        if (groqApiKey == null || groqApiKey.isBlank()) {
+            log.error("GROQ_API_KEY no configurada");
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(Map.of("error", "El chatbot no está configurado en el servidor (falta GROQ_API_KEY)"));
+        }
+
         try {
             WebClient client = WebClient.create(GROQ_API_URL);
 
