@@ -46,7 +46,7 @@ public class ConfiguracionWeb implements WebMvcConfigurer {
         
         // Orígenes permitidos
         config.setAllowedOrigins(Arrays.asList(
-                "https://ciclo07-proyecto-curso-integrador1-sistemas-software-emrco09n2.vercel.app", // Frontend en Producción
+                "https://ciclo07-proyecto-curso-integrador1.vercel.app", // Frontend en Producción
                 "http://localhost:5173", // Frontend en Local
                 "http://127.0.0.1:5173"
         ));
